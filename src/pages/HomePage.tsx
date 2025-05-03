@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Sun, Users, Home, Leaf, Hand, Phone, Banknote, Mail, User, Check } from 'lucide-react';
+import { Sun, Users, Home, Leaf, Hand, Phone, Banknote, Mail, Check } from 'lucide-react';
 import Header from '../components/layouts/Header';
 import Footer from '../components/layouts/Footer';
 import Testimonials from '../components/elements/Testemunials';
