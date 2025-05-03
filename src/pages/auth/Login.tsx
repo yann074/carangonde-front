@@ -5,7 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../../comp
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 import { Label } from '../../components/ui/label';
-import { Mail, Lock, Eye, EyeOff } from 'lucide-react'; // Importando os ícones para visibilidade da senha
+import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import Swal from 'sweetalert2';
 
 interface LoginForm {
@@ -20,7 +20,7 @@ const Login: React.FC = () => {
     password: ''
   });
   const [loading, setLoading] = useState<boolean>(false);
-  const [passwordVisible, setPasswordVisible] = useState<boolean>(false); // Estado para controlar a visibilidade da senha
+  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -90,19 +90,19 @@ const Login: React.FC = () => {
           style={{ backgroundImage: "url('/src/assets/img_login.svg')" }}
         >
           <h1 className="text-white text-5xl lg:text-6xl text-center w-3/4 mb-4">Bem-vindo de volta</h1>
-          <h3 className="text-yellow-500 text-3xl text-center w-64 mt-4">Entre para acessar nosso conteúdo</h3>
+          <h3 className="text-yellow-400 text-3xl text-center w-64 mt-4">Entre para acessar nosso conteúdo</h3>
         </div>
 
         {/* Right side - Login Form */}
         <div className="w-full md:w-1/2 bg-white p-8 flex flex-col justify-center">
           <Card className="border-none shadow-none">
             <CardHeader className="space-y-1 text-center">
-              <CardTitle className="text-4xl font-bold mb-8">Login</CardTitle>
+              <CardTitle className="text-4xl font-bold mb-8 text-yellow-600">Login</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               <Button
                 variant="outline"
-                className="w-full flex items-center justify-center gap-2 py-5 border-black rounded-lg"
+                className="w-full flex items-center justify-center gap-2 py-5 border-yellow-400 rounded-lg hover:bg-yellow-50"
                 onClick={handleGoogleLogin}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
@@ -115,11 +115,20 @@ const Login: React.FC = () => {
                 Continuar com Google
               </Button>
 
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-300"></div>
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-2 bg-white text-gray-500">ou entre com email</span>
+                </div>
+              </div>
+
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
                   <div className="relative">
-                    <div className="absolute left-3 top-3 text-gray-400">
+                    <div className="absolute left-3 top-3 text-yellow-600">
                       <Mail size={16} />
                     </div>
                     <Input
@@ -129,7 +138,7 @@ const Login: React.FC = () => {
                       placeholder="Digite seu email"
                       value={form.email}
                       onChange={handleChange}
-                      className="pl-10 border-0 border-b-2 border-black rounded-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                      className="pl-10 border-0 border-b-2 border-yellow-400 rounded-none focus-visible:ring-0 focus-visible:ring-offset-0 focus:border-yellow-600"
                       required
                     />
                   </div>
@@ -140,37 +149,37 @@ const Login: React.FC = () => {
                     <Label htmlFor="password">Senha</Label>
                     <Link
                       to="/forgot-password"
-                      className="text-xs text-purple-700 hover:underline"
+                      className="text-xs text-yellow-600 hover:underline hover:text-yellow-700"
                     >
                       Esqueci minha senha
                     </Link>
                   </div>
                   <div className="relative">
-                    <div className="absolute left-3 top-3 text-gray-400">
+                    <div className="absolute left-3 top-3 text-yellow-600">
                       <Lock size={16} />
                     </div>
                     <Input
                       id="password"
                       name="password"
-                      type={passwordVisible ? 'text' : 'password'} // Alterando o tipo de input baseado no estado
+                      type={passwordVisible ? 'text' : 'password'}
                       placeholder="Digite sua senha"
                       value={form.password}
                       onChange={handleChange}
-                      className="pl-10 border-0 border-b-2 border-black rounded-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                      className="pl-10 border-0 border-b-2 border-yellow-400 rounded-none focus-visible:ring-0 focus-visible:ring-offset-0 focus:border-yellow-600"
                       required
                     />
                     <div
-                      onClick={() => setPasswordVisible(!passwordVisible)} // Alternando o estado de visibilidade
-                      className="absolute right-3 top-3 cursor-pointer text-gray-400"
+                      onClick={() => setPasswordVisible(!passwordVisible)}
+                      className="absolute right-3 top-3 cursor-pointer text-yellow-600 hover:text-yellow-700"
                     >
-                      {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />} {/* Exibindo o ícone correspondente */}
+                      {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
                     </div>
                   </div>
                 </div>
 
                 <Button
                   type="submit"
-                  className="w-full bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg"
+                  className="w-full bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg py-6 text-lg font-semibold shadow-md transition-all duration-300"
                   disabled={loading}
                 >
                   {loading ? 'Entrando...' : 'Entrar'}
@@ -182,7 +191,7 @@ const Login: React.FC = () => {
                 Não tem conta?{' '}
                 <Link
                   to="/register"
-                  className="text-purple-700 hover:underline font-medium"
+                  className="text-yellow-600 hover:underline font-medium hover:text-yellow-700"
                 >
                   Cadastre-se aqui
                 </Link>

@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+/* No seu index.css ou App.css */
+body {
+    background-color: #ffffff !important;
+  }
+  

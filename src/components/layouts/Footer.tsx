@@ -75,27 +75,6 @@ const Footer = () => {
           </li>
         </ul>
       </div>
-
-      {/* Coluna 4 - Newsletter */}
-      <div>
-        <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">Newsletter</h3>
-        <p className="mt-4 text-gray-500 text-sm">
-          Assine nossa newsletter para receber atualizações sobre novos eventos.
-        </p>
-        <form className="mt-4 flex">
-          <input
-            type="email"
-            placeholder="Seu e-mail"
-            className="px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm w-full"
-          />
-          <button
-            type="submit"
-            className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-r-md text-sm font-medium"
-          >
-            Assinar
-          </button>
-        </form>
-      </div>
     </div>
 
     {/* Rodapé inferior */}

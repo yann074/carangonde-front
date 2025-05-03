@@ -53,7 +53,7 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 bg-cover bg-center" 
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 bg-cover bg-center" 
          style={{ backgroundImage: "url('/src/assets/bg_gray.svg')" }}>
       <div className="flex w-full max-w-4xl rounded-lg overflow-hidden shadow-2xl">
         {/* Left side - Presentation */}
@@ -65,11 +65,11 @@ const Register: React.FC = () => {
 
         {/* Right side - Registration Form */}
         <div className="w-full md:w-1/2 bg-white p-8 flex flex-col justify-center">
-          <h2 className="text-3xl font-bold text-center mb-8">CADASTRE-SE</h2>
+          <h2 className="text-3xl font-bold text-center mb-8 text-yellow-600">CADASTRE-SE</h2>
           
           <button 
             onClick={handleGoogleSignup}
-            className="w-full py-3 mb-6 flex items-center justify-center gap-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            className="w-full py-3 mb-6 flex items-center justify-center gap-2 border border-yellow-400 rounded-lg hover:bg-yellow-50 transition-colors"
           >
             <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20">
               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
@@ -80,9 +80,18 @@ const Register: React.FC = () => {
             CONTINUAR COM GOOGLE
           </button>
 
+          <div className="relative mb-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white text-gray-500">ou cadastre-se com email</span>
+            </div>
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="relative">
-              <div className="absolute left-3 top-3 text-gray-400">
+              <div className="absolute left-3 top-3 text-yellow-500">
                 <User size={18} />
               </div>
               <input
@@ -91,13 +100,13 @@ const Register: React.FC = () => {
                 placeholder="Digite seu nome completo"
                 value={form.name}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-2 border-b-2 border-gray-300 focus:border-purple-500 focus:outline-none"
+                className="w-full pl-10 pr-4 py-2 border-b-2 border-yellow-300 focus:border-yellow-500 focus:outline-none"
                 required
               />
             </div>
 
             <div className="relative">
-              <div className="absolute left-3 top-3 text-gray-400">
+              <div className="absolute left-3 top-3 text-yellow-500">
                 <Mail size={18} />
               </div>
               <input
@@ -106,13 +115,13 @@ const Register: React.FC = () => {
                 placeholder="Digite seu email"
                 value={form.email}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-2 border-b-2 border-gray-300 focus:border-purple-500 focus:outline-none"
+                className="w-full pl-10 pr-4 py-2 border-b-2 border-yellow-300 focus:border-yellow-500 focus:outline-none"
                 required
               />
             </div>
 
             <div className="relative">
-              <div className="absolute left-3 top-3 text-gray-400">
+              <div className="absolute left-3 top-3 text-yellow-500">
                 <Lock size={18} />
               </div>
               <input
@@ -121,13 +130,13 @@ const Register: React.FC = () => {
                 placeholder="Digite sua senha"
                 value={form.password}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-2 border-b-2 border-gray-300 focus:border-purple-500 focus:outline-none"
+                className="w-full pl-10 pr-4 py-2 border-b-2 border-yellow-300 focus:border-yellow-500 focus:outline-none"
                 required
               />
             </div>
 
             <div className="relative">
-              <div className="absolute left-3 top-3 text-gray-400">
+              <div className="absolute left-3 top-3 text-yellow-500">
                 <Calendar size={18} />
               </div>
               <label className="block text-sm text-gray-500 ml-10">Data de Nascimento</label>
@@ -136,13 +145,13 @@ const Register: React.FC = () => {
                 type="date"
                 value={form.birthday}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-2 border-b-2 border-gray-300 focus:border-purple-500 focus:outline-none"
+                className="w-full pl-10 pr-4 py-2 border-b-2 border-yellow-300 focus:border-yellow-500 focus:outline-none"
                 required
               />
             </div>
 
             <div className="relative">
-              <div className="absolute left-3 top-3 text-gray-400">
+              <div className="absolute left-3 top-3 text-yellow-500">
                 <CreditCard size={18} />
               </div>
               <input
@@ -151,13 +160,13 @@ const Register: React.FC = () => {
                 placeholder="Digite seu CPF"
                 value={form.cpf}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-2 border-b-2 border-gray-300 focus:border-purple-500 focus:outline-none"
+                className="w-full pl-10 pr-4 py-2 border-b-2 border-yellow-300 focus:border-yellow-500 focus:outline-none"
                 required
               />
             </div>
 
             <div className="relative">
-              <div className="absolute left-3 top-3 text-gray-400">
+              <div className="absolute left-3 top-3 text-yellow-500">
                 <Phone size={18} />
               </div>
               <input
@@ -166,13 +175,13 @@ const Register: React.FC = () => {
                 placeholder="Digite seu telefone"
                 value={form.phone}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-2 border-b-2 border-gray-300 focus:border-purple-500 focus:outline-none"
+                className="w-full pl-10 pr-4 py-2 border-b-2 border-yellow-300 focus:border-yellow-500 focus:outline-none"
                 required
               />
             </div>
 
             <div className="relative">
-              <div className="absolute left-3 top-3 text-gray-400">
+              <div className="absolute left-3 top-3 text-yellow-500">
                 <Home size={18} />
               </div>
               <input
@@ -181,20 +190,14 @@ const Register: React.FC = () => {
                 placeholder="Digite seu endereço"
                 value={form.address}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-2 border-b-2 border-gray-300 focus:border-purple-500 focus:outline-none"
+                className="w-full pl-10 pr-4 py-2 border-b-2 border-yellow-300 focus:border-yellow-500 focus:outline-none"
                 required
               />
             </div>
 
-            <div className="relative">
-              <div className="absolute left-3 top-3 text-gray-400">
-                <Home size={18} />
-              </div>
-            </div>
-
             <button 
               type="submit" 
-              className="w-full py-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg transition-colors"
+              className="w-full py-3 bg-yellow-500 hover:bg-yellow-600 text-white font-bold rounded-lg transition-colors shadow-md"
             >
               REGISTRAR
             </button>
@@ -202,7 +205,7 @@ const Register: React.FC = () => {
 
           <div className="mt-4 text-center text-sm">
             Já tem uma conta?{' '}
-            <Link to="/login" className="text-purple-600 hover:underline font-medium">
+            <Link to="/login" className="text-yellow-600 hover:underline font-medium">
               Faça login
             </Link>
           </div>

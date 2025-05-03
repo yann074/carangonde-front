@@ -8,6 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import logo_carangonde from "../../assets/logo_carangonde.svg";
 
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -26,12 +27,12 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-gradient-to-r from-gray-900 to-gray-800 text-white sticky top-0 z-50 shadow-lg">
+    <header className="bg-white text-white sticky top-0 z-50 shadow-lg">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo Section */}
         <div className="flex items-center space-x-3">
           <img 
-            src="/path/to/logo.png" 
+            src={logo_carangonde} 
             alt="Logo" 
             className="w-16 h-16 object-contain hover:scale-105 transition-transform" 
           />
@@ -94,7 +95,7 @@ export default function Header() {
             </DropdownMenu>
           ) : (
             <Link to="/login">
-              <Button className="bg-gradient-to-r from-orange-500 to-orange-400 hover:from-orange-600 hover:to-orange-500 text-white shadow-lg hover:shadow-orange-500/30 transition-all">
+              <Button className="bg-orange-400   hover:bg-transparent hover:border hover:border-orange-400 text-white shadow-lg hover:cursor-pointer  transition-all">
                 Entrar
               </Button>
             </Link>
