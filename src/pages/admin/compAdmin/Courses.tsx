@@ -4,13 +4,11 @@ import {
     Trash,
     Paintbrush,
     MoreHorizontal,
-    BookOpen,
     Calendar, 
     Search,
     Filter,
     Loader2,
     Clock,
-    GraduationCap,
     DollarSign,
 } from "lucide-react";
 import {
@@ -53,18 +51,24 @@ interface Course {
     title: string;
     description: string;
     duration: string;
+    objectives: string;
     requirements: string;
-    location: string;
-    benefits?: string;
+    syllabus: string;
+    modality: string;
+    level: string;
+    category_id: string;
+    institution_id: string;
+    price: string;
     status: string;
-    course_type: string;
-    education_level: string;
-    companies_id?: string;
     created_at?: string;
     updated_at?: string;
-    price?: string;
-    instructor?: string;
-}
+    institution?: {
+      name: string;
+    };
+    category?: {
+      name: string;
+    };
+  }
 
 export default function CoursesTable() {
     const [courses, setCourses] = useState<Course[]>([]);
@@ -199,8 +203,7 @@ export default function CoursesTable() {
         const matchesSearch = course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
             course.description.toLowerCase().includes(searchTerm.toLowerCase());
         const matchesStatus = filterStatus === "all" || course.status.toLowerCase() === filterStatus.toLowerCase();
-        const matchesType = filterType === "all" || course.course_type.toLowerCase() === filterType.toLowerCase();
-        return matchesSearch && matchesStatus && matchesType;
+        return matchesSearch && matchesStatus
     });
 
     const truncateText = (text: string, maxLength: number) => {
@@ -317,18 +320,6 @@ export default function CoursesTable() {
                                                 </TableCell>
                                                 <TableCell>
                                                     <div className="flex items-center gap-2">
-                                                        <BookOpen className="h-4 w-4 text-blue-600" />
-                                                        <span>{course.course_type || "Not specified"}</span>
-                                                    </div>
-                                                </TableCell>
-                                                <TableCell>
-                                                    <div className="flex items-center gap-2">
-                                                        <GraduationCap className="h-4 w-4 text-amber-600" />
-                                                        <span>{course.education_level || "Not specified"}</span>
-                                                    </div>
-                                                </TableCell>
-                                                <TableCell>
-                                                    <div className="flex items-center gap-2">
                                                         <DollarSign className="h-4 w-4 text-green-600" />
                                                         <span>{course.price || "Free"}</span>
                                                     </div>
@@ -401,7 +392,7 @@ export default function CoursesTable() {
                 </CardContent>
             </Card>
 
-            {/* Dialog for course details 
+             
             <CourseDetailsDialog
                 open={detailsDialogOpen}
                 onOpenChange={setDetailsDialogOpen}
@@ -410,7 +401,7 @@ export default function CoursesTable() {
                 detailsError={detailsError}
                 handleEdit={handleEdit}
             />
-            */}
+            
         </div>
     );
 }
