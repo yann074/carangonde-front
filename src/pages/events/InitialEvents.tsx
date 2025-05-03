@@ -60,7 +60,7 @@ const InitialEvents: React.FC = () => {
   const [selectedEvent, setSelectedEvent] = useState<Events | null>(null);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/events')
+    axios.get('https://carangonde-back-main-naf2yz.laravel.cloud/api/events')
       .then(response => {
         setData(response.data.data);
       })

@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { Sun, Users, Home, Leaf, Hand, Phone, Banknote, Mail, User, Check } from 'lucide-react';
 import Header from '../components/layouts/Header';
 import Footer from '../components/layouts/Footer';
+import Testimonials from '../components/elements/Testemunials';
+import Actions from '../components/elements/Actions';
 
 const HomePage = () => {
   return (
@@ -167,55 +169,9 @@ const HomePage = () => {
           </div>
         </section>
 
-        {/* Testimonials Section */}
-        <section className="bg-white py-20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Vozes que Inspiram</h2>
-              <p className="text-xl text-gray-600 leading-relaxed">
-                Histórias reais de transformação e esperança. Cada depoimento é um testemunho do poder da solidariedade.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-gray-50 p-8 rounded-lg border border-gray-200">
-                <div className="flex items-center mb-4">
-                  <div className="bg-amber-100 p-3 rounded-full mr-4">
-                    <User className="w-6 h-6 text-amber-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Beneficiária do Programa Social</h4>
-                    <p className="text-sm text-gray-500">Contemplada com cesta básica</p>
-                  </div>
-                </div>
-                <blockquote className="text-gray-700 italic leading-relaxed">
-                  "Hoje fui receber minha cesta básica doada pela Carangondé Cidadania. Essa ação veio na hora certa, num momento de muita necessidade para minha família."
-                </blockquote>
-              </div>
-
-              <div className="bg-gray-50 p-8 rounded-lg border border-gray-200">
-                <div className="flex items-center mb-4">
-                  <div className="bg-yellow-100 p-3 rounded-full mr-4">
-                    <Home className="w-6 h-6 text-yellow-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Beneficiária do Programa Habitacional</h4>
-                    <p className="text-sm text-gray-500">Contemplada com moradia</p>
-                  </div>
-                </div>
-                <blockquote className="text-gray-700 italic leading-relaxed">
-                  "Agradeço a vocês e a Deus por esse privilégio. Minha nova casa trouxe dignidade e segurança para minha família."
-                </blockquote>
-              </div>
-            </div>
-
-            <div className="flex justify-center mt-12 space-x-2">
-              <button className="w-3 h-3 rounded-full bg-gray-300 focus:bg-amber-600" aria-label="Slide 1"></button>
-              <button className="w-3 h-3 rounded-full bg-gray-300 focus:bg-amber-600" aria-label="Slide 2"></button>
-              <button className="w-3 h-3 rounded-full bg-gray-300 focus:bg-amber-600" aria-label="Slide 3"></button>
-            </div>
-          </div>
-        </section>
+          
+          {/* Testimonials Section */}
+        <Testimonials />
 
         {/* Donation Section */}
         <section className="bg-gradient-to-r from-amber-500 to-yellow-600 py-16 text-white">
@@ -268,64 +224,11 @@ const HomePage = () => {
           </div>
         </section>
 
+                  
         {/* Actions Section */}
-        <section className="bg-gray-50 py-20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">O que fazemos</h2>
-              <p className="text-xl text-gray-600 leading-relaxed">
-                Na nossa ONG, sabemos que o conhecimento é o poder que impulsiona mudanças reais.
-                É hora de fazer a diferença.
-              </p>
-            </div>
+        <Actions />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-              <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 h-full flex flex-col items-center text-center">
-                <div className="bg-amber-50 p-4 rounded-full mb-6">
-                  <Users className="w-10 h-10 text-amber-600" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">CIDADANIA E REDE</h3>
-                <p className="text-gray-500 leading-relaxed flex-grow">
-                  Nas vastas extensões rurais da Bahia, muitas famílias enfrentam desafios diários
-                  para acessar serviços básicos.
-                </p>
-              </div>
-
-              <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 h-full flex flex-col items-center text-center">
-                <div className="bg-amber-50 p-4 rounded-full mb-6">
-                  <Home className="w-10 h-10 text-amber-600" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">CONSTRUÇÃO DE UNIDADES HABITACIONAIS</h3>
-                <p className="text-gray-500 leading-relaxed flex-grow">
-                  Nos dedicamos a construir unidades habitacionais nas áreas rurais da Bahia,
-                  proporcionando um refúgio estável.
-                </p>
-              </div>
-
-              <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 h-full flex flex-col items-center text-center">
-                <div className="bg-amber-50 p-4 rounded-full mb-6">
-                  <Leaf className="w-10 h-10 text-amber-600" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">IDENTIDADE E MEIO AMBIENTE</h3>
-                <p className="text-gray-500 leading-relaxed flex-grow">
-                  Apoiar suas culturas valoriza sua contribuição para a conservação da biodiversidade
-                  e promove a harmonia.
-                </p>
-              </div>
-
-              <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 h-full flex flex-col items-center text-center">
-                <div className="bg-amber-50 p-4 rounded-full mb-6">
-                  <Hand className="w-10 h-10 text-amber-600" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">CAPACITAÇÃO E EMPODERAMENTO</h3>
-                <p className="text-gray-500 leading-relaxed flex-grow">
-                  Os cursos oferecem uma chance única de aprender e crescer em suas vidas profissionais.
-                  Eles abrem portas.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Footer Section */}
       </div>
       <Footer />
     </>
