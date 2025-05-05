@@ -103,8 +103,10 @@ export default function Header() {
                 <DropdownMenuItem 
                   className="flex items-center gap-2 text-gray-700 hover:bg-orange-50 focus:bg-orange-50 cursor-pointer rounded px-3 py-2"
                 >
-                  <UserCircle className="h-4 w-4 text-orange-500" />
-                  Meu Perfil
+                  <Link  to="/profile" className="flex items-center gap-2 text-gray-700 hover:text-orange-500 transition-colors">
+                  <UserCircle className="h-4 w-4 text-orange-500"/>
+                    Meu Perfil
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem 
                   onSelect={handleLogout} 
