@@ -44,7 +44,7 @@ const Login: React.FC = () => {
         },
       })
       .then((response) => {
-        const { token, permission } = response.data.data;
+        const { token, role } = response.data.data;
 
         Swal.fire({
           icon: 'success',
@@ -62,10 +62,10 @@ const Login: React.FC = () => {
         
         localStorage.setItem("token", token);
 
-        if (permission === 'admin') {
-          navigate("/dashboard");
+        if (role === 'admin') {
+          navigate("/admin");
         } else {
-          navigate("/");
+          navigate("/courses");
         }
       })
       .catch((error) => {
