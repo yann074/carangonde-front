@@ -17,10 +17,10 @@ const AdminRoute = ({ children }: { children: React.ReactNode }) => {
       }
 
       try {
-        const res = await axios.get("http://127.0.0.1:8000/api/userprofile", {
+        const res = await axios.get("http://127.0.0.1:8000/api/user", {
           headers: { Authorization: `Bearer ${token}` },
         })
-        if (res.data.permission === "admin") setIsAdmin(true)
+        if (res.data.role === "admin") setIsAdmin(true)
       } catch (err) {
         console.error("Erro ao buscar perfil:", err)
       } finally {

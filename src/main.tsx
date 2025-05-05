@@ -12,6 +12,11 @@ import Events from './pages/events/InitialEvents'
 import Courses from './pages/admin/compAdmin/Courses'
 import EventsAdmin from './pages/admin/compAdmin/Events'
 import UsersAdmin from './pages/admin/compAdmin/Users'
+import FormEvents from './pages/Forms/FormEvents'
+import FormCourse from './pages/Forms/FormCourse'
+import FormUser from './pages/Forms/FormUser'
+
+import UserProfile from './pages/profile/UserProfile'
 
 import UserRoute from './userAccess/ProtecedRoute/UserRoute'
 import AdminRoute from './userAccess/ProtecedRoute/AdminRoute'
@@ -21,15 +26,17 @@ const router = createBrowserRouter([
   {
     path: '/admin',
     element: (
-      <AdminRoute>
         <Dashboard />
-      </AdminRoute>
     ),
     errorElement: <ErrorPage />,
     children: [
       { path: 'courses', element: <Courses />, errorElement: <ErrorPage /> },
       { path: 'events', element: <EventsAdmin />, errorElement: <ErrorPage /> },
       { path: 'users', element: <UsersAdmin />, errorElement: <ErrorPage /> },
+
+      { path: 'createevent', element: <FormEvents />, errorElement: <ErrorPage /> },
+      { path: 'createcourse', element: <FormCourse />, errorElement: <ErrorPage /> },
+      { path: 'createuser', element: <FormUser />, errorElement: <ErrorPage /> },
     ]
   },
   {
@@ -45,6 +52,15 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/profile',
+    element: (
+      <UserRoute>
+        <UserProfile />
+      </UserRoute>
+    ),
     errorElement: <ErrorPage />,
   },
   {

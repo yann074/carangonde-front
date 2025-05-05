@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { cn } from "../../lib/utils";
-import { Button } from "../../components/ui/button";
-import { BookOpen, Calendar, Users, Menu, X, LogOut, LayoutDashboard } from "lucide-react";
-import { Link, Outlet } from "react-router-dom";
+import type React from "react"
+import { useState, useEffect } from "react"
+import { cn } from "../../lib/utils"
+import { Button } from "../../components/ui/button"
+import { BookOpen, Calendar, Users, Menu, X, LogOut, LayoutDashboard } from "lucide-react"
+import { Link, Outlet } from "react-router-dom"
 import {
   LineChart,
   Line,
@@ -13,53 +14,69 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer
-} from "recharts";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card";
+  ResponsiveContainer,
+} from "recharts"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
 
 const Dashboard: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [currentView, setCurrentView] = useState("dashboard");
-  const [stats, setStats] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [collapsed, setCollapsed] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [currentView, setCurrentView] = useState("dashboard")
+  const [stats, setStats] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true);
-        
-        const [coursesRes, eventsRes, usersRes] = await Promise.all([
-          fetch("http://127.0.0.1:8000/api/courses/stats"),
-          fetch("http://127.0.0.1:8000/api/events/stats"),
-          fetch("http://127.0.0.1:8000/api/users/stats")
-        ]);
+        setLoading(true)
+        const response = await fetch("http://127.0.0.1:8000/api/admin/dashboard")
+        const data = await response.json()
 
-        const coursesData = await coursesRes.json();
-        const eventsData = await eventsRes.json();
-        const usersData = await usersRes.json();
+        const transformedData = {
+          courses: {
+            total_courses: data.data.courses.total_courses,
+            enrollment_over_time: data.data.courses.enrollment_over_time.map((item: any) => ({
+              dia: item.dia,
+              inscritos: item.inscritos,
+            })),
+            recent_courses: data.data.courses.recent_courses,
+          },
+          events: {
+            active_events: data.data.event.active_events.length,
+            upcoming_events: data.data.event.upcoming_events,
+            participation_rate: 0,
+          },
+          users: {
+            total_users: data.data.users.total_users,
+            recent_users: data.data.users.recent_users,
+          },
+        }
 
-        setStats({
-          courses: coursesData,
-          events: eventsData,
-          users: usersData
-        });
-        
+        console.log("Dashboard data:", data)
+        setStats(transformedData)
       } catch (err) {
-        setError("Erro ao carregar dados");
-        console.error(err);
+        setError("Erro ao carregar dados")
+        console.error(err)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
   // Dados para os gráficos
-  const enrollmentData = stats?.courses?.enrollment_over_time || [];
-  const coursePopularity = stats?.courses?.popular_courses || [];
+  const enrollmentData = stats?.courses?.enrollment_over_time || []
+
+  // Dados mock para cursos populares (enquanto a API não retorna)
+  const coursePopularity = [
+    { name: "Curso de Artesanato", enrollments: 120 },
+    { name: "Curso de Informática", enrollments: 95 },
+    { name: "Curso de Panificação", enrollments: 80 },
+    { name: "Curso de Culinária", enrollments: 65 },
+    { name: "Curso de Costura", enrollments: 50 },
+  ]
 
   return (
     <div className="h-screen flex bg-gray-100">
@@ -177,9 +194,7 @@ const Dashboard: React.FC = () => {
                     <CardTitle className="text-sm font-medium text-muted-foreground">Total de Cursos</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">
-                      {loading ? "-" : stats?.courses?.total_courses || 0}
-                    </div>
+                    <div className="text-2xl font-bold">{loading ? "-" : stats?.courses?.total_courses || 0}</div>
                     <p className="text-xs text-muted-foreground">oferecidos pela ONG</p>
                   </CardContent>
                 </Card>
@@ -189,9 +204,7 @@ const Dashboard: React.FC = () => {
                     <CardTitle className="text-sm font-medium text-muted-foreground">Eventos Ativos</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">
-                      {loading ? "-" : stats?.events?.active_events || 0}
-                    </div>
+                    <div className="text-2xl font-bold">{loading ? "-" : stats?.events?.active_events || 0}</div>
                     <p className="text-xs text-muted-foreground">acontecendo este mês</p>
                   </CardContent>
                 </Card>
@@ -201,9 +214,7 @@ const Dashboard: React.FC = () => {
                     <CardTitle className="text-sm font-medium text-muted-foreground">Total de Usuários</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">
-                      {loading ? "-" : stats?.users?.total_users || 0}
-                    </div>
+                    <div className="text-2xl font-bold">{loading ? "-" : stats?.users?.total_users || 0}</div>
                     <p className="text-xs text-muted-foreground">cadastrados no sistema</p>
                   </CardContent>
                 </Card>
@@ -227,7 +238,7 @@ const Dashboard: React.FC = () => {
                 <Card>
                   <CardHeader>
                     <CardTitle>Matrículas em Cursos</CardTitle>
-                    <CardDescription>Evolução das matrículas nos últimos meses</CardDescription>
+                    <CardDescription>Evolução das matrículas nos últimos dias</CardDescription>
                   </CardHeader>
                   <CardContent>
                     {loading ? (
@@ -239,18 +250,18 @@ const Dashboard: React.FC = () => {
                         <ResponsiveContainer width="100%" height="100%">
                           <LineChart data={enrollmentData}>
                             <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="month" />
+                            <XAxis dataKey="dia" />
                             <YAxis />
                             <Tooltip />
                             <Legend />
-                            <Line type="monotone" dataKey="enrollments" stroke="#8884d8" activeDot={{ r: 8 }} />
+                            <Line type="monotone" dataKey="inscritos" stroke="#8884d8" activeDot={{ r: 8 }} />
                           </LineChart>
                         </ResponsiveContainer>
                       </div>
                     )}
                   </CardContent>
                 </Card>
-              
+
                 {/* Cursos mais Populares */}
                 <Card>
                   <CardHeader>
@@ -319,7 +330,7 @@ const Dashboard: React.FC = () => {
                           <div key={event.id} className="border-b pb-3 last:border-b-0">
                             <p className="text-sm font-medium">{event.title}</p>
                             <p className="text-xs text-gray-500">
-                              {new Date(event.date).toLocaleDateString("pt-BR")} às {event.time}
+                              {new Date(event.date).toLocaleDateString("pt-BR")} {event.time && `às ${event.time}`}
                             </p>
                           </div>
                         ))}
@@ -362,17 +373,17 @@ const Dashboard: React.FC = () => {
         </main>
       </div>
     </div>
-  );
-};
+  )
+}
 
 interface SidebarItemProps {
-  icon: React.ReactNode;
-  title: string;
-  active?: boolean;
-  collapsed?: boolean;
-  to?: string;
-  className?: string;
-  onClick?: () => void;
+  icon: React.ReactNode
+  title: string
+  active?: boolean
+  collapsed?: boolean
+  to?: string
+  className?: string
+  onClick?: () => void
 }
 
 const SidebarItem: React.FC<SidebarItemProps> = ({
@@ -389,28 +400,28 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
     collapsed ? "justify-center" : "items-center",
     active ? "bg-yellow-50 text-yellow-700" : "text-gray-600 hover:bg-gray-100 hover:text-gray-900",
     className,
-  );
+  )
 
   const content = (
     <>
       <span className="flex-shrink-0">{icon}</span>
       {!collapsed && <span className="ml-3">{title}</span>}
     </>
-  );
+  )
 
   if (to) {
     return (
       <Link to={to} className={baseClasses} onClick={onClick}>
         {content}
       </Link>
-    );
+    )
   }
 
   return (
     <button className={baseClasses} onClick={onClick}>
       {content}
     </button>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard

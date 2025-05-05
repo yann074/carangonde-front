@@ -162,7 +162,7 @@ export default function EventsTable() {
               Manage all events available on the platform.
             </CardDescription>
           </div>
-          <Link to="/dashboard/createevent">
+          <Link to="/admin/createevent">
             <Button className="bg-purple-600 hover:bg-purple-700">
               Add New Event
             </Button>

@@ -222,7 +222,7 @@ export default function CoursesTable() {
                             Manage all courses available on the platform.
                         </CardDescription>
                     </div>
-                    <Link to="/dashboard/createcourse">
+                    <Link to="/admin/createcourse">
                         <Button className="bg-purple-600 hover:bg-purple-700">
                             Add New Course
                         </Button>

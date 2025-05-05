@@ -122,7 +122,7 @@ export default function UsersTable() {
             <CardTitle className="text-2xl">Gerenciamento de Usuários</CardTitle>
             <CardDescription>Administre os usuários da plataforma.</CardDescription>
           </div>
-          <Link to="/dashboard/createuser">
+          <Link to="/admin/createuser">
             <Button className="bg-purple-600 hover:bg-purple-700">
               Novo Usuário
             </Button>
