@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
-import  Couses  from './pages/courses/InitialCourses'
+import Couses from './pages/courses/InitialCourses'
 import ErrorPage from './pages/error/ErrorPage'
 import Dashboard from './pages/admin/Dashboard'
 import Events from './pages/events/InitialEvents'
@@ -13,29 +13,23 @@ import Courses from './pages/admin/compAdmin/Courses'
 import EventsAdmin from './pages/admin/compAdmin/Events'
 import UsersAdmin from './pages/admin/compAdmin/Users'
 
+import UserRoute from './userAccess/ProtecedRoute/UserRoute'
+import AdminRoute from './userAccess/ProtecedRoute/AdminRoute'
+import { AuthProvider } from './userAccess/AuthProvider'
+
 const router = createBrowserRouter([
   {
     path: '/admin',
     element: (
-      <Dashboard />
+      <AdminRoute>
+        <Dashboard />
+      </AdminRoute>
     ),
     errorElement: <ErrorPage />,
     children: [
-      {
-        path: 'courses',
-        element: <Courses />,
-        errorElement: <ErrorPage />,
-      },
-      {
-        path: 'events',
-        element: <EventsAdmin />,
-        errorElement: <ErrorPage />,
-      },
-      {
-        path: 'users',
-        element: <UsersAdmin />,
-        errorElement: <ErrorPage />,
-      },
+      { path: 'courses', element: <Courses />, errorElement: <ErrorPage /> },
+      { path: 'events', element: <EventsAdmin />, errorElement: <ErrorPage /> },
+      { path: 'users', element: <UsersAdmin />, errorElement: <ErrorPage /> },
     ]
   },
   {
@@ -55,12 +49,20 @@ const router = createBrowserRouter([
   },
   {
     path: '/courses',
-    element: <Couses />,
+    element: (
+      <UserRoute>
+        <Couses />
+      </UserRoute>
+    ),
     errorElement: <ErrorPage />,
   },
   {
     path: '/events',
-    element: <Events />,
+    element: (
+      <UserRoute>
+        <Events />
+      </UserRoute>
+    ),
     errorElement: <ErrorPage />,
   },
   {
@@ -71,6 +73,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>,
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  </StrictMode>
 )
