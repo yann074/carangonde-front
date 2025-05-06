@@ -1,5 +1,3 @@
-"use client"
-
 import type React from "react"
 import { useState, type FormEvent, type ChangeEvent } from "react"
 import axios from "axios"
@@ -24,7 +22,7 @@ interface FormData {
   location: string
   date: string
   time: string
-  image: string
+  image: File | null
   active: number
 }
 
@@ -42,9 +40,15 @@ const FormEvents: React.FC = () => {
     location: "",
     date: "",
     time: "",
-    image: "",
+    image: null,
     active: 1,
   })
+
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null
+    setFormData((prev) => ({ ...prev, image: file }))
+  }
+
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -66,16 +70,27 @@ const FormEvents: React.FC = () => {
     e.preventDefault()
     setIsSubmitting(true)
     setError(null)
-
-    console.log("Enviando formData:", formData)
+  
     try {
-      await axios.post("http://127.0.0.1:8000/api/events", formData, {
+      const token = localStorage.getItem("token")
+      const data = new FormData()
+      data.append("title", formData.title)
+      data.append("description", formData.description)
+      data.append("location", formData.location)
+      data.append("date", formData.date)
+      data.append("time", formData.time)
+      data.append("active", String(formData.active))
+      if (formData.image) {
+        data.append("image", formData.image)
+      }
+  
+      await axios.post("http://127.0.0.1:8000/api/events", data, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
         },
       })
-
-      // Exibe o SweetAlert2 de sucesso
+  
       Swal.fire({
         title: "Evento criado com sucesso!",
         text: "O evento foi publicado e já está disponível.",
@@ -83,27 +98,23 @@ const FormEvents: React.FC = () => {
         confirmButtonText: "OK",
         timer: 3000,
         timerProgressBar: true,
-      }).then(() => {
-        // Navega para a página anterior após fechar o alert
-        navigate(-1)
-      })
-
-      // Reset form
+      }).then(() => navigate(-1))
+  
+      // Reset
       setFormData({
         title: "",
         description: "",
         location: "",
         date: "",
         time: "",
-        image: "",
+        image: null,
         active: 1,
       })
       setActiveTab("details")
     } catch (err: any) {
       const errorMessage = err.response?.data?.message || err.message || "Ocorreu um erro desconhecido"
       setError(errorMessage)
-
-      // Exibe o SweetAlert2 de erro
+  
       Swal.fire({
         title: "Erro ao criar evento",
         text: "Ocorreu um erro ao tentar criar o evento. Tente novamente.",
@@ -114,7 +125,7 @@ const FormEvents: React.FC = () => {
       setIsSubmitting(false)
     }
   }
-
+  
   const nextTab = () => {
     const tabs: TabType[] = ["details", "location", "datetime", "settings"]
     const currentIndex = tabs.indexOf(activeTab)
@@ -191,13 +202,12 @@ const FormEvents: React.FC = () => {
               <div className="space-y-2">
                 <Label htmlFor="input-image">URL da imagem</Label>
                 <Input
-                  id="input-image"
-                  name="image"
-                  placeholder="Ex: https://exemplo.com/imagem.jpg"
-                  value={formData.image}
-                  onChange={handleChange}
-                  maxLength={255}
-                />
+                    id="input-image"
+                    name="image"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                  />
                 <p className="text-sm text-muted-foreground">
                   Adicione uma URL de imagem para ilustrar o evento. Recomendamos imagens de 1200x630 pixels.
                 </p>

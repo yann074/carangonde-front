@@ -31,6 +31,7 @@ interface Course {
   image: string;
   slots: number;
   active: boolean;
+  image_url: string;
 }
 
 // Componente personalizado para as setas de navegação
@@ -69,7 +70,12 @@ export const MyCourses: React.FC = () => {
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/api/courses')
       .then(response => {
-        setData(response.data.data);
+        const updatedData = response.data.data.map((event: any) => ({
+          ...event,
+          image_url: `http://localhost:8000/storage/${event.image}` 
+        }));
+  
+        setData(updatedData);
       })
       .catch(error => {
         setError('Erro ao buscar cursos');
@@ -132,6 +138,7 @@ export const MyCourses: React.FC = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-gray-600 line-clamp-3">{item.description}</p>
+                  <span>{item.image_url}</span>
                 </CardContent>
                 <CardFooter className="flex justify-between text-sm text-gray-500">
                   <span>{item.start_date.split('T')[0]}</span>

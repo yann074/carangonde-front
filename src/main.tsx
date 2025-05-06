@@ -18,6 +18,8 @@ import FormUser from './pages/Forms/FormUser'
 
 import UserProfile from './pages/profile/UserProfile'
 
+import ConfirmEmail from './pages/mails/ConfirmEmail'
+
 import UserRoute from './userAccess/ProtecedRoute/UserRoute'
 import AdminRoute from './userAccess/ProtecedRoute/AdminRoute'
 import { AuthProvider } from './userAccess/AuthProvider'
@@ -77,10 +79,13 @@ const router = createBrowserRouter([
   {
     path: '/events',
     element: (
-      <UserRoute>
         <Events />
-      </UserRoute>
     ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/confirm-email',
+    element: <ConfirmEmail />,
     errorElement: <ErrorPage />,
   },
   {

@@ -23,7 +23,7 @@ interface FormData {
   start_date: string
   end_date: string
   location: string
-  image: string
+  image: File | null
   slots: number
   active: boolean
 }
@@ -43,7 +43,7 @@ const FormCourse: React.FC = () => {
     start_date: "",
     end_date: "",
     location: "",
-    image: "",
+    image: null,
     slots: 0,
     active: true,
   })
@@ -66,6 +66,11 @@ const FormCourse: React.FC = () => {
     setFormData((prev) => ({ ...prev, [name]: processedValue }))
   }
 
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null
+    setFormData((prev) => ({ ...prev, image: file }))
+  }
+
   const handleSwitchChange = (checked: boolean) => {
     setFormData((prev) => ({ ...prev, active: checked }))
   }
@@ -75,17 +80,30 @@ const FormCourse: React.FC = () => {
     setIsSubmitting(true)
     setError(null)
 
-    // Convert boolean to 1/0 for API
-    const apiData = {
-      ...formData,
-      active: formData.active ? 1 : 0,
-    }
-
-    console.log("Enviando formData:", apiData)
     try {
-      await axios.post("http://127.0.0.1:8000/api/courses", apiData, {
+      const token = localStorage.getItem("token")
+
+      // Criar um objeto FormData para enviar arquivos
+      const data = new FormData()
+      data.append("title", formData.title)
+      data.append("description", formData.description)
+      data.append("instructor", formData.instructor)
+      data.append("start_date", formData.start_date)
+      data.append("end_date", formData.end_date)
+      data.append("location", formData.location)
+      data.append("slots", formData.slots.toString())
+      data.append("active", formData.active ? "1" : "0")
+
+      // Adicionar a imagem apenas se existir
+      if (formData.image) {
+        data.append("image", formData.image)
+      }
+
+      // Enviar com o cabeçalho correto para upload de arquivos
+      await axios.post("http://127.0.0.1:8000/api/courses", data, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
         },
       })
 
@@ -110,7 +128,7 @@ const FormCourse: React.FC = () => {
         start_date: "",
         end_date: "",
         location: "",
-        image: "",
+        image: null,
         slots: 0,
         active: true,
       })
@@ -204,17 +222,10 @@ const FormCourse: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="input-image">URL da imagem</Label>
-                <Input
-                  id="input-image"
-                  name="image"
-                  placeholder="Ex: https://exemplo.com/imagem.jpg"
-                  value={formData.image}
-                  onChange={handleChange}
-                  maxLength={255}
-                />
+                <Label htmlFor="input-image">Imagem do curso</Label>
+                <Input id="input-image" name="image" type="file" accept="image/*" onChange={handleImageChange} />
                 <p className="text-sm text-muted-foreground">
-                  Adicione uma URL de imagem para ilustrar o curso. Recomendamos imagens de 1200x630 pixels.
+                  Adicione uma imagem para ilustrar o curso. Recomendamos imagens de 1200x630 pixels.
                 </p>
               </div>
             </TabsContent>

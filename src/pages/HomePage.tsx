@@ -13,7 +13,7 @@ const HomePage = () => {
       <Header />
 
         {/* Hero Section - Yellow Focus */}
-        <section className="py-10">
+        <section className="py-10" id="inicio">
           <div className="container mx-auto px-4">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
               <div className="w-full lg:w-1/2 space-y-8">
@@ -72,7 +72,7 @@ const HomePage = () => {
         </section>
 
         {/* About Us Section */}
-        <section className="bg-white py-20">
+        <section className="bg-white py-20" id="about">
           <div className="container mx-auto px-4">
             <div className="flex flex-col lg:flex-row items-center gap-12">
               <div className="w-full lg:w-1/2">

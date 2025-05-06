@@ -1,7 +1,5 @@
 import { 
-    Paintbrush, 
-    BookOpen, 
-    MapPin, 
+    Paintbrush,
     Calendar, 
     Loader2,
     Clock,
@@ -13,7 +11,6 @@ import {
     Award,
     Bookmark,
     BarChart2,
-    Layers
   } from "lucide-react";
   import { 
     Dialog,
@@ -38,27 +35,15 @@ import {
   } from "../../../components/ui/tabs";
   
   interface Course {
-    id: number;
-    title: string;
-    description: string;
-    duration: string;
-    objectives: string;
-    requirements: string;
-    syllabus: string;
-    modality: string;
-    level: string;
-    category_id: string;
-    institution_id: string;
-    price: string;
-    status: string;
-    created_at?: string;
-    updated_at?: string;
-    institution?: {
-      name: string;
-    };
-    category?: {
-      name: string;
-    };
+    id: number
+    title: string
+    description: string
+    duration: string
+    created_at?: string
+    updated_at?: string
+    image: string
+    image_url: string
+    status: string
   }
   
   function CourseDetailsDialog({
@@ -100,32 +85,6 @@ import {
         case 'encerrado':
         case 'fechado':
           return 'bg-red-100 text-red-800';
-        default:
-          return 'bg-gray-100 text-gray-800';
-      }
-    };
-  
-    const getModalityIcon = (modality: string) => {
-      switch(modality.toLowerCase()) {
-        case 'online':
-          return <School className="h-4 w-4" />;
-        case 'presencial':
-          return <MapPin className="h-4 w-4" />;
-        case 'híbrido':
-          return <Layers className="h-4 w-4" />;
-        default:
-          return <BookOpen className="h-4 w-4" />;
-      }
-    };
-  
-    const getLevelBadge = (level: string) => {
-      switch(level.toLowerCase()) {
-        case 'iniciante':
-          return 'bg-blue-100 text-blue-800';
-        case 'intermediário':
-          return 'bg-purple-100 text-purple-800';
-        case 'avançado':
-          return 'bg-indigo-100 text-indigo-800';
         default:
           return 'bg-gray-100 text-gray-800';
       }
@@ -177,13 +136,6 @@ import {
                       <div className={`${getStatusColor(selectedCourse.status)} px-3 py-1`}>
                         {selectedCourse.status}
                       </div>
-                      <div className="bg-gray-100 text-gray-800 px-3 py-1 flex items-center">
-                        {getModalityIcon(selectedCourse.modality)}
-                        <span className="ml-1">{selectedCourse.modality}</span>
-                      </div>
-                      <div className={`${getLevelBadge(selectedCourse.level)} px-3 py-1`}>
-                        {selectedCourse.level}
-                      </div>
                       <p className="text-sm text-gray-500 flex items-center">
                         <Calendar className="h-4 w-4 inline mr-1" /> 
                         Criado em {formatDate(selectedCourse.created_at)}
@@ -222,9 +174,6 @@ import {
                             Investimento
                           </CardTitle>
                         </CardHeader>
-                        <CardContent>
-                          <p className="text-gray-700 font-medium">{selectedCourse.price || "Gratuito"}</p>
-                        </CardContent>
                       </Card>
                       
                       <Card>
@@ -246,9 +195,6 @@ import {
                             Instituição
                           </CardTitle>
                         </CardHeader>
-                        <CardContent>
-                          <p className="text-gray-700">{selectedCourse.institution?.name || "Não especificado"}</p>
-                        </CardContent>
                       </Card>
                       
                       <Card>
@@ -258,9 +204,6 @@ import {
                             Categoria
                           </CardTitle>
                         </CardHeader>
-                        <CardContent>
-                          <p className="text-gray-700">{selectedCourse.category?.name || "Não especificado"}</p>
-                        </CardContent>
                       </Card>
                     </div>
                   </div>
@@ -278,11 +221,6 @@ import {
                           O que os alunos serão capazes de fazer após completar o curso
                         </CardDescription>
                       </CardHeader>
-                      <CardContent>
-                        <div className="whitespace-pre-line text-gray-700">
-                          {selectedCourse.objectives}
-                        </div>
-                      </CardContent>
                     </Card>
                     
                     <Card>
@@ -295,11 +233,6 @@ import {
                           Tópicos e módulos que serão abordados no curso
                         </CardDescription>
                       </CardHeader>
-                      <CardContent>
-                        <div className="whitespace-pre-line text-gray-700">
-                          {selectedCourse.syllabus}
-                        </div>
-                      </CardContent>
                     </Card>
                   </div>
                 </TabsContent>
@@ -315,11 +248,6 @@ import {
                         Conhecimentos ou habilidades necessárias para participar do curso
                       </CardDescription>
                     </CardHeader>
-                    <CardContent>
-                      <div className="whitespace-pre-line text-gray-700">
-                        {selectedCourse.requirements || "Nenhum pré-requisito específico"}
-                      </div>
-                    </CardContent>
                   </Card>
                 </TabsContent>
               </Tabs>

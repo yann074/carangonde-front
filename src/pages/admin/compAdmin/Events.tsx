@@ -50,6 +50,7 @@ interface Event {
   date: string;
   time: string;
   active: string;
+  image_url: string;
 }
 
 export default function EventsTable() {
@@ -63,16 +64,14 @@ export default function EventsTable() {
     axios
       .get("http://127.0.0.1:8000/api/events")
       .then((response) => {
-        let eventsData: Event[] = [];
-        if (Array.isArray(response.data)) {
-          eventsData = response.data;
-        } else if (response.data.data && Array.isArray(response.data.data)) {
-          eventsData = response.data.data;
-        } else {
-          console.error("Unexpected API response format:", response.data);
-        }
 
-        setEvents(eventsData);
+        const updatedData = response.data.data.map((event: any) => ({
+          ...event,
+          image_url: `http://localhost:8000/storage/${event.image}` 
+        }));
+
+
+        setEvents(updatedData);
         setLoading(false);
       })
       .catch((error) => {
@@ -157,14 +156,14 @@ export default function EventsTable() {
       <Card>
         <CardHeader className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <CardTitle className="text-2xl">Events Management</CardTitle>
+            <CardTitle className="text-2xl">Eventos Disponíveis</CardTitle>
             <CardDescription>
-              Manage all events available on the platform.
+              Eventos Criados e Disponíveis para Visualização
             </CardDescription>
           </div>
           <Link to="/admin/createevent">
             <Button className="bg-purple-600 hover:bg-purple-700">
-              Add New Event
+              Adicionar novos Eventos
             </Button>
           </Link>
           <Outlet />
@@ -174,7 +173,7 @@ export default function EventsTable() {
             <div className="relative flex-1">
               <Search className="absolute left-2 top-3 h-4 w-4 text-gray-400" />
               <Input
-                placeholder="Search events..."
+                placeholder="Procurar eventos..."
                 className="pl-8"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -186,10 +185,9 @@ export default function EventsTable() {
                   <SelectValue placeholder="Filter by status" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All statuses</SelectItem>
-                  <SelectItem value="ativo">Active</SelectItem>
-                  <SelectItem value="inativo">Inactive</SelectItem>
-                  <SelectItem value="em breve">Coming Soon</SelectItem>
+                  <SelectItem value="all">Todos</SelectItem>
+                  <SelectItem value="ativo">Ativos</SelectItem>
+                  <SelectItem value="inativo">Inativos</SelectItem>
                 </SelectContent>
               </Select>
               <Button variant="outline" size="icon">
@@ -209,12 +207,11 @@ export default function EventsTable() {
                 <TableHeader>
                   <TableRow>
                     <TableHead className="w-[50px]">#</TableHead>
-                    <TableHead className="w-[250px]">Event</TableHead>
+                    <TableHead className="w-[70px]"></TableHead>
+                    <TableHead className="w-[250px]">Evento</TableHead>
                     <TableHead>Status</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead>Time</TableHead>
-                    <TableHead>Location</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
+                    <TableHead>Data</TableHead>
+                    <TableHead>Localização</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -222,6 +219,7 @@ export default function EventsTable() {
                     filteredEvents.map((event) => (
                       <TableRow key={event.id}>
                         <TableCell className="font-medium">{event.id}</TableCell>
+                        <img src={event.image_url} alt="Evento" className="mt-2 w-10 h-10 rounded-full" />
                         <TableCell>
                           <div>
                             <p className="font-medium">{event.title}</p>
@@ -235,8 +233,7 @@ export default function EventsTable() {
                             {event.active}
                           </div>
                         </TableCell>
-                        <TableCell>{formatDate(event.date)}</TableCell>
-                        <TableCell>{event.time}</TableCell>
+                        <TableCell>{formatDate(event.date)} {event.time}</TableCell>
                         <TableCell>{event.location}</TableCell>
                         <TableCell className="text-right">
                           <DropdownMenu>

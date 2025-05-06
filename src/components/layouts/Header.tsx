@@ -50,34 +50,34 @@ export default function Header() {
 
         {/* Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
-          <Link 
-            to="/" 
+          <a 
+            href="#inicio" 
             className="relative text-gray-700 hover:text-orange-500 transition-colors font-medium group"
           >
             Início
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
-          </Link>
-          <Link 
-            to="/about" 
+          </a>
+          <a 
+            href="#about" 
             className="relative text-gray-700 hover:text-orange-500 transition-colors font-medium group"
           >
             Quem Somos
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
-          </Link>
+          </a>
           <Link 
-            to="/eventos" 
+            to="/events" 
             className="relative text-gray-700 hover:text-orange-500 transition-colors font-medium group"
           >
             Eventos
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
           </Link>
-          <Link 
-            to="/contato" 
+          <a 
+            href="#contato" 
             className="relative text-gray-700 hover:text-orange-500 transition-colors font-medium group"
           >
             Contato
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
-          </Link>
+          </a>
         </nav>
 
         {/* Auth Section */}

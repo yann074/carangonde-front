@@ -116,9 +116,12 @@ const FormUsers: React.FC = () => {
         active: formData.active ? 1 : 0
       }
 
+      const token = localStorage.getItem("token")
+
       await axios.post("http://127.0.0.1:8000/api/users", payload, {
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
         },
       })
 
