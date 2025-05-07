@@ -1,69 +1,84 @@
-import React from 'react';
-import Header from '../../components/layouts/Header';
-import { MyCourses } from './myCourses';
-import Footer from '../../components/layouts/Footer';
+import type React from "react"
+import Header from "../../components/layouts/Header"
+import { MyCourses } from "./myCourses"
+import Footer from "../../components/layouts/Footer"
 
 const Courses: React.FC = () => {
   return (
-    <div className="bg-yellow-50 min-h-screen">
+    <div className="bg-white min-h-screen">
       <Header />
-      <main className=" mx-auto px-4 py-8">
-        {/* Hero Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="text-yellow-600">Aprimore</span> Suas Habilidades Com Os{' '}
-            <span className="text-yellow-600">Nossos Cursos</span>
+
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        {/* Hero Section - Simplificado e mais clean */}
+        <div className="text-center mb-16 max-w-3xl mx-auto">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight text-gray-900">
+            Aprimore suas habilidades com nossos cursos
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
-            Conhecimento transformador para capacitar você e sua comunidade. Aprenda com os melhores instrutores.
-          </p>
-          <a 
-            href="#cursos" 
-            className="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-bold px-8 py-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+          <p className="text-lg text-gray-600 mb-8">Conhecimento transformador para capacitar você e sua comunidade.</p>
+          <a
+            href="#cursos"
+            className="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-medium px-6 py-3 rounded-lg transition-all duration-200"
           >
-            Comece a Aprender Agora
+            Ver cursos disponíveis
           </a>
         </div>
-        
-        {/* Featured Image */}
-        <figure className="w-full h-80 bg-gradient-to-r from-yellow-100 to-yellow-200 mb-12 rounded-xl overflow-hidden shadow-md flex items-center justify-center">
-          <div className="text-center p-8">
-            <h2 className="text-3xl font-bold text-yellow-800 mb-4">Educação que Transforma</h2>
-            <p className="text-yellow-700">Cursos práticos para o desenvolvimento pessoal e profissional</p>
+
+        {/* Stats Section - Redesenhado com estilo mais clean */}
+        <section className="mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-gray-50 rounded-lg p-6 text-center">
+              <span className="block text-3xl font-bold text-yellow-600 mb-2">+100</span>
+              <span className="text-gray-600">Famílias Ajudadas</span>
+            </div>
+            <div className="bg-gray-50 rounded-lg p-6 text-center">
+              <span className="block text-3xl font-bold text-yellow-600 mb-2">+10</span>
+              <span className="text-gray-600">Casas Entregues</span>
+            </div>
+            <div className="bg-gray-50 rounded-lg p-6 text-center">
+              <span className="block text-3xl font-bold text-yellow-600 mb-2">+20</span>
+              <span className="text-gray-600">Cursos Disponíveis</span>
+            </div>
           </div>
-        </figure>
-        
-        {/* Stats Section */}
-        <section className="mb-16">
-          <div className="bg-yellow-600 text-white py-6 px-6 rounded-xl shadow-lg mb-8">
-            <ul className="flex flex-wrap justify-center items-center gap-6 md:gap-12">
-              <li className="text-center px-4 py-2 bg-yellow-700 rounded-lg">
-                <span className="block text-3xl font-bold">+100</span>
-                <span className="text-yellow-100">Famílias Ajudadas</span>
-              </li>
-              <li className="text-center px-4 py-2 bg-yellow-700 rounded-lg">
-                <span className="block text-3xl font-bold">+10</span>
-                <span className="text-yellow-100">Casas Entregues</span>
-              </li>
-              <li className="text-center px-4 py-2 bg-yellow-700 rounded-lg">
-                <span className="block text-3xl font-bold">+20</span>
-                <span className="text-yellow-100">Cursos Disponíveis</span>
-              </li>
-            </ul>
+        </section>
+
+        {/* Courses Section */}
+        <section id="cursos" className="mb-16">
+          <div className="mb-12 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Nossos Cursos</h2>
+            <div className="w-20 h-1 bg-yellow-500 mx-auto"></div>
           </div>
-          
-          {/* Courses Section */}
-          <div id="cursos" className="bg-white p-8 rounded-xl shadow-sm">
-            <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
-              Nossos <span className="text-yellow-600">Cursos</span>
-            </h2>
-            <MyCourses />
+          <MyCourses />
+        </section>
+
+        {/* Informações adicionais - Seção clean e minimalista */}
+        <section className="bg-gray-50 rounded-lg p-8 md:p-12 mb-16">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Educação que Transforma</h2>
+            <p className="text-gray-600 mb-8">
+              Nossos cursos são projetados para oferecer conhecimento prático e relevante, ajudando no desenvolvimento
+              pessoal e profissional de nossa comunidade.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <div className="flex items-center bg-white px-4 py-3 rounded-lg">
+                <div className="w-3 h-3 bg-yellow-500 rounded-full mr-3"></div>
+                <span className="text-gray-700">Instrutores qualificados</span>
+              </div>
+              <div className="flex items-center bg-white px-4 py-3 rounded-lg">
+                <div className="w-3 h-3 bg-yellow-500 rounded-full mr-3"></div>
+                <span className="text-gray-700">Material didático</span>
+              </div>
+              <div className="flex items-center bg-white px-4 py-3 rounded-lg">
+                <div className="w-3 h-3 bg-yellow-500 rounded-full mr-3"></div>
+                <span className="text-gray-700">Certificado de conclusão</span>
+              </div>
+            </div>
           </div>
         </section>
       </main>
+
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default Courses;
+export default Courses
