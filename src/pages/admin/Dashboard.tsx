@@ -7,16 +7,46 @@ import { Link, Outlet } from "react-router-dom"
 import {
   LineChart,
   Line,
-  BarChart,
-  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from "recharts"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card"
+
+const dadosUltimoMes = [
+  { dia: "01/03", inscritos: 12 },
+  { dia: "02/03", inscritos: 15 },
+  { dia: "03/03", inscritos: 10 },
+  { dia: "04/03", inscritos: 20 },
+  { dia: "05/03", inscritos: 18 },
+  { dia: "06/03", inscritos: 25 },
+  { dia: "07/03", inscritos: 22 },
+  { dia: "08/03", inscritos: 30 },
+  { dia: "09/03", inscritos: 28 },
+  { dia: "10/03", inscritos: 32 },
+  { dia: "11/03", inscritos: 35 },
+  { dia: "12/03", inscritos: 30 },
+  { dia: "13/03", inscritos: 28 },
+  { dia: "14/03", inscritos: 32 },
+  { dia: "15/03", inscritos: 35 },
+  { dia: "16/03", inscritos: 42 },
+  { dia: "17/03", inscritos: 38 },
+  { dia: "18/03", inscritos: 40 },
+  { dia: "19/03", inscritos: 45 },
+  { dia: "20/03", inscritos: 50 },
+  { dia: "21/03", inscritos: 48 },
+  { dia: "22/03", inscritos: 52 },
+  { dia: "23/03", inscritos: 55 },
+  { dia: "24/03", inscritos: 58 },
+  { dia: "25/03", inscritos: 60 },
+  { dia: "26/03", inscritos: 62 },
+  { dia: "27/03", inscritos: 65 },
+  { dia: "28/03", inscritos: 68 },
+  { dia: "29/03", inscritos: 70 },
+  { dia: "30/03", inscritos: 75 },
+]
 
 const Dashboard: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false)
@@ -50,6 +80,11 @@ const Dashboard: React.FC = () => {
           users: {
             total_users: data.data.users.total_users,
             recent_users: data.data.users.recent_users,
+            user_to_day: data.data.users.user_to_day,
+            enrollment_over_time: data.data.users.enrollment_over_time.map((item: any) => ({
+              dia: item.dia,
+              inscritos: item.inscritos,
+            })),
           },
         }
 
@@ -65,18 +100,6 @@ const Dashboard: React.FC = () => {
 
     fetchData()
   }, [])
-
-  // Dados para os gráficos
-  const enrollmentData = stats?.courses?.enrollment_over_time || []
-
-  // Dados mock para cursos populares (enquanto a API não retorna)
-  const coursePopularity = [
-    { name: "Curso de Artesanato", enrollments: 120 },
-    { name: "Curso de Informática", enrollments: 95 },
-    { name: "Curso de Panificação", enrollments: 80 },
-    { name: "Curso de Culinária", enrollments: 65 },
-    { name: "Curso de Costura", enrollments: 50 },
-  ]
 
   return (
     <div className="h-screen flex bg-gray-100">
@@ -218,79 +241,54 @@ const Dashboard: React.FC = () => {
                     <p className="text-xs text-muted-foreground">cadastrados no sistema</p>
                   </CardContent>
                 </Card>
-
-                <Card>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-medium text-muted-foreground">Taxa de Participação</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">
-                      {loading ? "-" : stats?.events?.participation_rate ? `${stats.events.participation_rate}%` : "0%"}
-                    </div>
-                    <p className="text-xs text-muted-foreground">em eventos recentes</p>
-                  </CardContent>
-                </Card>
               </div>
 
-              {/* Charts Section */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                {/* Matrículas em Cursos */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Matrículas em Cursos</CardTitle>
-                    <CardDescription>Evolução das matrículas nos últimos dias</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    {loading ? (
-                      <div className="h-80 flex items-center justify-center">Carregando dados...</div>
-                    ) : error ? (
-                      <div className="h-80 flex items-center justify-center text-red-500">{error}</div>
-                    ) : (
-                      <div className="h-80">
-                        <ResponsiveContainer width="100%" height="100%">
-                          <LineChart data={enrollmentData}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="dia" />
-                            <YAxis />
-                            <Tooltip />
-                            <Legend />
-                            <Line type="monotone" dataKey="inscritos" stroke="#8884d8" activeDot={{ r: 8 }} />
-                          </LineChart>
-                        </ResponsiveContainer>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
 
-                {/* Cursos mais Populares */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Cursos Mais Populares</CardTitle>
-                    <CardDescription>Por número de participantes</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="h-80">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Inscrições de Usuários por Dia</CardTitle>
+                  <span className="text-sm text-muted-foreground">
+                    Evolução diária das inscrições de usuários no sistema
+                  </span>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-80">
+                    {loading ? (
+                      <div className="flex items-center justify-center h-full">Carregando...</div>
+                    ) : error ? (
+                      <div className="flex items-center justify-center h-full text-red-500">{error}</div>
+                    ) : stats?.users?.enrollment_over_time ? (
                       <ResponsiveContainer width="100%" height="100%">
-                        <BarChart
-                          data={coursePopularity}
-                          layout="vertical"
+                        <LineChart
+                          data={stats.users.enrollment_over_time}
                           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                         >
                           <CartesianGrid strokeDasharray="3 3" />
-                          <XAxis type="number" />
-                          <YAxis dataKey="name" type="category" width={100} />
+                          <XAxis dataKey="dia" />
+                          <YAxis />
                           <Tooltip />
-                          <Legend />
-                          <Bar dataKey="enrollments" fill="#ffc658" />
-                        </BarChart>
+                          <Line
+                            type="monotone"
+                            dataKey="inscritos"
+                            stroke="#34d399"
+                            activeDot={{ r: 6 }}
+                            strokeWidth={2}
+                          />
+                        </LineChart>
                       </ResponsiveContainer>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+                    ) : (
+                      <div className="flex items-center justify-center h-full text-gray-500">
+                        Nenhum dado encontrado.
+                      </div>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+
+
 
               {/* Recent Activity Section */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
                 <Card>
                   <CardHeader>
                     <CardTitle>Últimos Cursos Adicionados</CardTitle>
