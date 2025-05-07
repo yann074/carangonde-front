@@ -15,39 +15,6 @@ import {
 } from "recharts"
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card"
 
-const dadosUltimoMes = [
-  { dia: "01/03", inscritos: 12 },
-  { dia: "02/03", inscritos: 15 },
-  { dia: "03/03", inscritos: 10 },
-  { dia: "04/03", inscritos: 20 },
-  { dia: "05/03", inscritos: 18 },
-  { dia: "06/03", inscritos: 25 },
-  { dia: "07/03", inscritos: 22 },
-  { dia: "08/03", inscritos: 30 },
-  { dia: "09/03", inscritos: 28 },
-  { dia: "10/03", inscritos: 32 },
-  { dia: "11/03", inscritos: 35 },
-  { dia: "12/03", inscritos: 30 },
-  { dia: "13/03", inscritos: 28 },
-  { dia: "14/03", inscritos: 32 },
-  { dia: "15/03", inscritos: 35 },
-  { dia: "16/03", inscritos: 42 },
-  { dia: "17/03", inscritos: 38 },
-  { dia: "18/03", inscritos: 40 },
-  { dia: "19/03", inscritos: 45 },
-  { dia: "20/03", inscritos: 50 },
-  { dia: "21/03", inscritos: 48 },
-  { dia: "22/03", inscritos: 52 },
-  { dia: "23/03", inscritos: 55 },
-  { dia: "24/03", inscritos: 58 },
-  { dia: "25/03", inscritos: 60 },
-  { dia: "26/03", inscritos: 62 },
-  { dia: "27/03", inscritos: 65 },
-  { dia: "28/03", inscritos: 68 },
-  { dia: "29/03", inscritos: 70 },
-  { dia: "30/03", inscritos: 75 },
-]
-
 const Dashboard: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
