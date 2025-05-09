@@ -59,7 +59,7 @@ export default function UsersTable() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://127.0.0.1:8000/api/users")
+      .get("https://carangonde-back-production.up.railway.app/api/users")
       .then((response) => {
         const data = Array.isArray(response.data)
           ? response.data
@@ -98,7 +98,7 @@ export default function UsersTable() {
     if (!window.confirm("Tem certeza que deseja excluir este usuário?")) return;
 
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/users/${id}`);
+      await axios.delete(`https://carangonde-back-production.up.railway.app/api/users/${id}`);
       setUsers((prev) => prev.filter((u) => u.id !== id));
     } catch (error) {
       console.error("Erro ao excluir usuário:", error);

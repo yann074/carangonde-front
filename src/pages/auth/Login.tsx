@@ -35,7 +35,7 @@ const Login: React.FC = () => {
     setLoading(true);
 
     axios
-      .post("http://127.0.0.1:8000/api/login", {
+      .post("https://carangonde-back-production.up.railway.app/api/login", {
         email: form.email,
         password: form.password,
       }, {

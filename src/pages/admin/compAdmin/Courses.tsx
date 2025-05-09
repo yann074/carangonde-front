@@ -56,7 +56,7 @@ export default function CoursesTable() {
   useEffect(() => {
     setLoading(true)
     axios
-      .get("http://127.0.0.1:8000/api/courses")
+      .get("https://carangonde-back-production.up.railway.app/api/courses")
       .then((response) => {
         const updatedData = response.data.data.map((course: any) => ({
           ...course,
@@ -112,7 +112,7 @@ export default function CoursesTable() {
     if (!window.confirm("Você tem certeza que quer deletar o curso?")) return
 
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/courses/${id}`)
+      await axios.delete(`https://carangonde-back-production.up.railway.app/api/courses/${id}`)
       setCourses((prev) => prev.filter((c) => c.id !== id))
     } catch (error) {
       console.error("Error deleting course:", error)
@@ -126,7 +126,7 @@ export default function CoursesTable() {
     setDetailsError(null)
 
     try {
-      const endpoint = `http://127.0.0.1:8000/api/courses/${id}`
+      const endpoint = `https://carangonde-back-production.up.railway.app/api/courses/${id}`
       console.log(`Fetching course: ${endpoint}`)
 
       const response = await axios.get(endpoint)
