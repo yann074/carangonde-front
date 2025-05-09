@@ -38,12 +38,10 @@ import {
     id: number
     title: string
     description: string
-    duration: string
     created_at?: string
     updated_at?: string
     image: string
     image_url: string
-    status: string
   }
   
   function CourseDetailsDialog({
@@ -75,21 +73,7 @@ import {
       }
     };
   
-    const getStatusColor = (status: string) => {
-      switch(status.toLowerCase()) {
-        case 'ativo':
-        case 'aberto':
-          return 'bg-emerald-100 text-emerald-800';
-        case 'pendente':
-          return 'bg-amber-100 text-amber-800';
-        case 'encerrado':
-        case 'fechado':
-          return 'bg-red-100 text-red-800';
-        default:
-          return 'bg-gray-100 text-gray-800';
-      }
-    };
-  
+    
     return (
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0 gap-0 rounded-lg bg-white border shadow-lg" onInteractOutside={(e) => e.preventDefault()}>
@@ -133,9 +117,6 @@ import {
                       {selectedCourse.title}
                     </DialogTitle>
                     <div className="flex mt-2 gap-2 items-center flex-wrap">
-                      <div className={`${getStatusColor(selectedCourse.status)} px-3 py-1`}>
-                        {selectedCourse.status}
-                      </div>
                       <p className="text-sm text-gray-500 flex items-center">
                         <Calendar className="h-4 w-4 inline mr-1" /> 
                         Criado em {formatDate(selectedCourse.created_at)}
@@ -183,9 +164,6 @@ import {
                             Duração
                           </CardTitle>
                         </CardHeader>
-                        <CardContent>
-                          <p className="text-gray-700">{selectedCourse.duration || "Não especificado"}</p>
-                        </CardContent>
                       </Card>
                       
                       <Card>

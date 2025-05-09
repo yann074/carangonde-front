@@ -7,6 +7,7 @@ import {
   Search,
   Filter,
   Loader2,
+  Badge
 } from "lucide-react";
 import {
   Table,
@@ -49,7 +50,7 @@ interface Event {
   location: string;
   date: string;
   time: string;
-  active: string;
+  active: number;
   image_url: string;
 }
 
@@ -67,7 +68,7 @@ export default function EventsTable() {
 
         const updatedData = response.data.data.map((event: any) => ({
           ...event,
-          image_url: `http://localhost:8000/storage/${event.image}` 
+          image_url: `http://localhost:8000/storage/${event.image}`
         }));
 
 
@@ -80,30 +81,7 @@ export default function EventsTable() {
       });
   }, []);
 
-  const getStatusColor = (status: string | boolean | null) => {
-    if (!status) return "bg-purple-100 text-purple-800"; // Default fallback color
-    
-    // Convert status to string if it's a boolean
-    const statusStr = typeof status === 'boolean' 
-      ? (status ? 'ativo' : 'inativo') 
-      : String(status).toLowerCase();
-  
-    switch (statusStr) {
-      case "ativo":
-      case "active":
-      case "true":
-        return "bg-green-100 text-green-800";
-      case "inativo":
-      case "inactive":
-      case "false":
-        return "bg-red-100 text-red-800";
-      case "em breve":
-      case "coming soon":
-        return "bg-yellow-100 text-yellow-800";
-      default:
-        return "bg-purple-100 text-purple-800";
-    }
-  };
+
   const formatDate = (dateString?: string) => {
     if (!dateString) return "N/A";
     try {
@@ -136,15 +114,26 @@ export default function EventsTable() {
     }
   };
 
-  // Filter events
+
   const filteredEvents = events.filter((event) => {
     const matchesSearch =
       event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      event.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus =
-      filterStatus === "all" || event.active.toLowerCase() === filterStatus.toLowerCase();
-    return matchesSearch && matchesStatus;
-  });
+      event.description.toLowerCase().includes(searchTerm.toLowerCase())
+
+    let matchesStatus = true
+    switch (filterStatus) {
+      case "ativo":
+        matchesStatus = event.active === 1
+        break
+      case "inativo":
+        matchesStatus = event.active === 0
+        break
+      default:
+        matchesStatus = true
+    }
+
+    return matchesSearch && matchesStatus
+  })
 
   const truncateText = (text: string, maxLength: number) => {
     if (!text) return "";
@@ -162,7 +151,7 @@ export default function EventsTable() {
             </CardDescription>
           </div>
           <Link to="/admin/createevent">
-            <Button className="bg-purple-600 hover:bg-purple-700">
+            <Button className="bg-yellow-600 hover:bg-yellow-700">
               Adicionar novos Eventos
             </Button>
           </Link>
@@ -198,7 +187,7 @@ export default function EventsTable() {
 
           {loading ? (
             <div className="text-center py-10">
-              <Loader2 className="h-8 w-8 text-purple-600 animate-spin mx-auto mb-4" />
+              <Loader2 className="h-8 w-8 text-yellow-600 animate-spin mx-auto mb-4" />
               <p className="text-gray-500">Loading events...</p>
             </div>
           ) : (
@@ -229,10 +218,17 @@ export default function EventsTable() {
                           </div>
                         </TableCell>
                         <TableCell>
-                          <div className={getStatusColor(event.active)}>
-                            {event.active}
-                          </div>
+                          {event.active === 1 ? (
+                            <span className="bg-green-100 text-green-800 font-medium px-2.5 py-1 rounded-full text-xs">
+                              Ativo
+                            </span>
+                          ) : (
+                            <span className="bg-red-100 text-red-800 font-medium px-2.5 py-1 rounded-full text-xs">
+                              Inativo
+                            </span>
+                          )}
                         </TableCell>
+
                         <TableCell>{formatDate(event.date)} {event.time}</TableCell>
                         <TableCell>{event.location}</TableCell>
                         <TableCell className="text-right">

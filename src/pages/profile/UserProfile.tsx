@@ -46,7 +46,7 @@ interface User {
   name: string
   email: string
   phone: string
-  address: string
+  address: string 
   role: string
   cpf: string
   email_verified_at: string | null

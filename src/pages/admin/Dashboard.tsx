@@ -165,10 +165,6 @@ const Dashboard: React.FC = () => {
               {currentView === "users" && "Gestão de Usuários"}
             </h1>
           </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 rounded-full bg-yellow-700 flex items-center justify-center text-white">A</div>
-            <span className="text-sm font-medium">Admin</span>
-          </div>
         </header>
 
         {/* Page Content */}

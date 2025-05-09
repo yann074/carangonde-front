@@ -8,7 +8,6 @@ import {
   Search,
   Filter,
   Loader2,
-  Clock,
   BookOpen,
   Eye,
 } from "lucide-react"
@@ -33,12 +32,14 @@ interface Course {
   id: number
   title: string
   description: string
-  duration: string
+  active: boolean
+  slots: number
+  instructor: string
+  start_date: string
   created_at?: string
   updated_at?: string
   image: string
   image_url: string
-  status: string
 }
 
 export default function CoursesTable() {
@@ -71,22 +72,6 @@ export default function CoursesTable() {
         setLoading(false)
       })
   }, [])
-
-  const getStatusColor = (status: string) => {
-    if (!status) return "bg-gray-100 text-gray-800"
-    switch (status.toLowerCase()) {
-      case "ativo":
-        return "bg-green-100 text-green-800"
-      case "inativo":
-        return "bg-red-100 text-red-800"
-      case "em breve":
-        return "bg-yellow-100 text-yellow-800"
-      case "esgotado":
-        return "bg-blue-100 text-blue-800"
-      default:
-        return "bg-purple-100 text-purple-800"
-    }
-  }
 
   const formatDate = (dateString?: string) => {
     if (!dateString) return "N/A"
@@ -161,14 +146,21 @@ export default function CoursesTable() {
     }
   }
 
-  // Filter courses
-  const filteredCourses = courses.filter((course) => {
-    const matchesSearch =
-      course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      course.description.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesStatus = filterStatus === "all" || course.status.toLowerCase() === filterStatus.toLowerCase()
-    return matchesSearch && matchesStatus
-  })
+const filteredCourses = courses.filter((course) => {
+  const matchesSearch =
+    course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    course.description.toLowerCase().includes(searchTerm.toLowerCase())
+
+  let matchesStatus = true
+  if (filterStatus !== "all") {
+    if (filterStatus === "ativo") {
+      matchesStatus = course.active === true
+    } else if (filterStatus === "inativo") {
+      matchesStatus = course.active === false
+    }
+  }
+  return matchesSearch && matchesStatus
+})
 
   const truncateText = (text: string, maxLength: number) => {
     if (!text) return ""
@@ -178,13 +170,13 @@ export default function CoursesTable() {
   return (
     <div className="space-y-6">
       <Card className="shadow-md border-0">
-        <CardHeader className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-t-lg">
+        <CardHeader className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-gradient-to-r from-yellow-50 to-indigo-50 rounded-t-lg">
           <div>
-            <CardTitle className="text-2xl font-bold text-purple-800">Cursos</CardTitle>
-            <CardDescription className="text-purple-600">Gerencie os cursos disponíveis para os alunos</CardDescription>
+            <CardTitle className="text-2xl font-bold text-yellow-800">Cursos</CardTitle>
+            <CardDescription className="text-yellow-600">Gerencie os cursos disponíveis para os alunos</CardDescription>
           </div>
           <Link to="/admin/createcourse">
-            <Button className="bg-purple-600 hover:bg-purple-700 transition-all">
+            <Button className="bg-yellow-600 hover:bg-yellow-700 transition-all">
               <BookOpen className="mr-2 h-4 w-4" />
               Adicionar Curso
             </Button>
@@ -197,27 +189,26 @@ export default function CoursesTable() {
               <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
               <Input
                 placeholder="Procurar Cursos"
-                className="pl-9 border-purple-100 focus-visible:ring-purple-500"
+                className="pl-9 border-yellow-100 focus-visible:ring-yellow-500"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
             <div className="flex gap-2">
               <Select value={filterStatus} onValueChange={setFilterStatus}>
-                <SelectTrigger className="w-[180px] border-purple-100 focus:ring-purple-500">
+                <SelectTrigger className="w-[180px] border-yellow-100 focus:ring-yellow-500">
                   <SelectValue placeholder="Filtrar por status" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">Todos os Status</SelectItem>
                   <SelectItem value="ativo">Ativo</SelectItem>
                   <SelectItem value="inativo">Inativo</SelectItem>
-                  <SelectItem value="em breve">Em Breve</SelectItem>
                 </SelectContent>
               </Select>
               <Button
                 variant="outline"
                 size="icon"
-                className="border-purple-100 text-purple-600 hover:text-purple-700 hover:bg-purple-50"
+                className="border-yellow-100 text-yellow-600 hover:text-yellow-700 hover:bg-yellow-50"
               >
                 <Filter className="h-4 w-4" />
               </Button>
@@ -226,7 +217,7 @@ export default function CoursesTable() {
 
           {loading ? (
             <div className="text-center py-16">
-              <Loader2 className="h-10 w-10 text-purple-600 animate-spin mx-auto mb-4" />
+              <Loader2 className="h-10 w-10 text-yellow-600 animate-spin mx-auto mb-4" />
               <p className="text-gray-500">Carregando cursos...</p>
             </div>
           ) : (
@@ -238,8 +229,8 @@ export default function CoursesTable() {
                     <TableHead className="w-[250px] font-semibold">Curso</TableHead>
                     <TableHead className="font-semibold">Imagem</TableHead>
                     <TableHead className="font-semibold">Status</TableHead>
-                    <TableHead className="font-semibold">Duração</TableHead>
                     <TableHead className="font-semibold">Criado em</TableHead>
+                    <TableHead className="font-semibold">Início em</TableHead>
                     <TableHead className="text-right font-semibold">Ações</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -250,7 +241,7 @@ export default function CoursesTable() {
                         <TableCell className="font-medium">{course.id}</TableCell>
                         <TableCell>
                           <div>
-                            <p className="font-medium text-purple-900">{course.title}</p>
+                            <p className="font-medium text-yellow-900">{course.title}</p>
                             <p className="text-sm text-gray-500">{truncateText(course.description, 50)}</p>
                           </div>
                         </TableCell>
@@ -264,17 +255,15 @@ export default function CoursesTable() {
                           </div>
                         </TableCell>
                         <TableCell>
-                          <Badge
-                            className={`${getStatusColor(course.status)} font-medium px-2.5 py-1 rounded-full text-xs`}
-                          >
-                            {course.status || "N/A"}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex items-center gap-2">
-                            <Clock className="h-4 w-4 text-purple-500" />
-                            <span>{course.duration || "Não especificado"}</span>
-                          </div>
+                          {course.active === true ? (
+                            <Badge className="bg-green-100 text-green-800 font-medium px-2.5 py-1 rounded-full text-xs">
+                              Ativo
+                              </Badge>
+                              ) : (
+                                <Badge className="bg-red-100 text-red-800 font-medium px-2.5 py-1 rounded-full text-xs">
+                                  Inativo
+                                  </Badge>
+                                  )}
                         </TableCell>
                         <TableCell>
                           <div className="flex items-center gap-2">
@@ -282,10 +271,16 @@ export default function CoursesTable() {
                             <span>{formatDate(course.created_at)}</span>
                           </div>
                         </TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-2">
+                            <Calendar className="h-4 w-4 text-gray-400" />
+                            <span>{formatDate(course.start_date)}</span>
+                          </div>
+                           </TableCell>
                         <TableCell className="text-right">
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" className="h-8 w-8 p-0 hover:bg-purple-50 hover:text-purple-700">
+                              <Button variant="ghost" className="h-8 w-8 p-0 hover:bg-yellow-50 hover:text-yellow-700">
                                 <span className="sr-only">Abrir menu</span>
                                 <MoreHorizontal className="h-4 w-4" />
                               </Button>
@@ -295,9 +290,9 @@ export default function CoursesTable() {
                               <DropdownMenuSeparator />
                               <DropdownMenuItem
                                 onClick={() => handleViewDetails(course.id)}
-                                className="cursor-pointer hover:bg-purple-50"
+                                className="cursor-pointer hover:bg-yellow-50"
                               >
-                                <Eye className="mr-2 h-4 w-4 text-purple-600" />
+                                <Eye className="mr-2 h-4 w-4 text-yellow-600" />
                                 Ver Detalhes
                               </DropdownMenuItem>
                               <DropdownMenuItem
@@ -326,7 +321,7 @@ export default function CoursesTable() {
                           <BookOpen className="h-10 w-10 mb-2 text-gray-300" />
                           <p>Nenhum curso encontrado.</p>
                           {searchTerm && (
-                            <Button variant="link" className="mt-2 text-purple-600" onClick={() => setSearchTerm("")}>
+                            <Button variant="link" className="mt-2 text-yellow-600" onClick={() => setSearchTerm("")}>
                               Limpar busca
                             </Button>
                           )}
@@ -349,21 +344,21 @@ export default function CoursesTable() {
                 variant="outline"
                 size="sm"
                 disabled
-                className="border-purple-100 text-purple-700 hover:bg-purple-50"
+                className="border-yellow-100 text-yellow-700 hover:bg-yellow-50"
               >
                 Anterior
               </Button>
               <Button
                 variant="outline"
                 size="sm"
-                className="bg-purple-100 text-purple-700 border-purple-200 hover:bg-purple-200"
+                className="bg-yellow-100 text-yellow-700 border-yellow-200 hover:bg-yellow-200"
               >
                 1
               </Button>
-              <Button variant="outline" size="sm" className="border-purple-100 text-purple-700 hover:bg-purple-50">
+              <Button variant="outline" size="sm" className="border-yellow-100 text-yellow-700 hover:bg-yellow-50">
                 2
               </Button>
-              <Button variant="outline" size="sm" className="border-purple-100 text-purple-700 hover:bg-purple-50">
+              <Button variant="outline" size="sm" className="border-yellow-100 text-yellow-700 hover:bg-yellow-50">
                 Próximo
               </Button>
             </div>

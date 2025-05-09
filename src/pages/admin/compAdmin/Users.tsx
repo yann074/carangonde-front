@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import {
   Trash,
-  Paintbrush,
   MoreHorizontal,
+  CheckCircle2,
+  XCircle,
   Search,
   Filter,
   Loader2,
+  ShieldCheck,
+  User
 } from "lucide-react";
 import {
   Table,
@@ -48,6 +51,8 @@ interface User {
   email: string;
   role: string;
   status: string;
+  created_at: string;
+  confimation_token: string | null
 }
 
 export default function UsersTable() {
@@ -74,25 +79,17 @@ export default function UsersTable() {
       });
   }, []);
 
-  const getStatusColor = (status: string | boolean | null) => {
-    const statusStr = typeof status === "boolean"
-      ? status ? "ativo" : "inativo"
-      : String(status).toLowerCase();
-
-    switch (statusStr) {
-      case "ativo":
-        return "bg-green-100 text-green-800";
-      case "inativo":
-        return "bg-red-100 text-red-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
-  };
-
-  const handleEdit = (id: number) => {
-    console.log("Edit user", id);
-    // Navigate or open modal
-  };
+  const formatDate = (dateString: string | null) => {
+    if (!dateString) return "Não verificado"
+    const date = new Date(dateString)
+    return new Intl.DateTimeFormat("pt-BR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(date)
+  }
 
   const handleDelete = async (id: number) => {
     if (!window.confirm("Tem certeza que deseja excluir este usuário?")) return;
@@ -109,10 +106,17 @@ export default function UsersTable() {
     const matchesSearch =
       user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const isConfirmed = user.confimation_token === null;
+
     const matchesStatus =
-      filterStatus === "all" || user.status.toLowerCase() === filterStatus;
+      filterStatus === "all" ||
+      (filterStatus === "confirmed" && isConfirmed) ||
+      (filterStatus === "unconfirmed" && !isConfirmed);
+
     return matchesSearch && matchesStatus;
   });
+
 
   return (
     <div className="space-y-6">
@@ -123,7 +127,7 @@ export default function UsersTable() {
             <CardDescription>Administre os usuários da plataforma.</CardDescription>
           </div>
           <Link to="/admin/createuser">
-            <Button className="bg-purple-600 hover:bg-purple-700">
+            <Button className="bg-yellow-600 hover:bg-yellow-700">
               Novo Usuário
             </Button>
           </Link>
@@ -147,8 +151,8 @@ export default function UsersTable() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">Todos</SelectItem>
-                  <SelectItem value="ativo">Ativos</SelectItem>
-                  <SelectItem value="inativo">Inativos</SelectItem>
+                  <SelectItem value="confirmed">Ativos</SelectItem>
+                  <SelectItem value="unconfirmed">Inativos</SelectItem>
                 </SelectContent>
               </Select>
               <Button variant="outline" size="icon">
@@ -159,7 +163,7 @@ export default function UsersTable() {
 
           {loading ? (
             <div className="text-center py-10">
-              <Loader2 className="h-8 w-8 text-purple-600 animate-spin mx-auto mb-4" />
+              <Loader2 className="h-8 w-8 text-yellow-600 animate-spin mx-auto mb-4" />
               <p className="text-gray-500">Carregando usuários...</p>
             </div>
           ) : (
@@ -171,6 +175,7 @@ export default function UsersTable() {
                     <TableHead>Nome</TableHead>
                     <TableHead>Email</TableHead>
                     <TableHead>Função</TableHead>
+                    <TableHead>Data de Criação</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead className="text-right">Ações</TableHead>
                   </TableRow>
@@ -182,10 +187,32 @@ export default function UsersTable() {
                         <TableCell>{user.id}</TableCell>
                         <TableCell>{user.name}</TableCell>
                         <TableCell>{user.email}</TableCell>
-                        <TableCell>{user.role}</TableCell>
                         <TableCell>
-                          <div className={getStatusColor(user.status)}>
-                            {user.status}
+                          {user.role === "admin" ? (
+                            <span className="inline-flex items-center gap-1 rounded-md bg-green-100 px-2 py-1 text-sm font-semibold text-green-700">
+                              <ShieldCheck className="h-4 w-4" />
+                              Administrador
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 rounded-md bg-red-100 px-2 py-1 text-sm font-semibold text-red-700">
+                              <User className="h-4 w-4" />
+                              Usuário
+                            </span>
+                          )}
+                        </TableCell>
+
+                        <TableCell>{formatDate(user.created_at)}</TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-3">
+                            {user.confimation_token === null ? (
+                              <CheckCircle2 className="h-5 w-5 text-green-500" />
+                            ) : (
+                              <XCircle className="h-5 w-5 text-red-500" />
+                            )}
+                            <div>
+                              <p className="text-sm font-medium text-muted-foreground">Status do email</p>
+                              <p>{user.confimation_token ? "Não verificado" : "Verificado"}</p>
+                            </div>
                           </div>
                         </TableCell>
                         <TableCell className="text-right">
@@ -198,10 +225,6 @@ export default function UsersTable() {
                             <DropdownMenuContent align="end">
                               <DropdownMenuLabel>Ações</DropdownMenuLabel>
                               <DropdownMenuSeparator />
-                              <DropdownMenuItem onClick={() => handleEdit(user.id)}>
-                                <Paintbrush className="mr-2 h-4 w-4 text-blue-600" />
-                                Editar
-                              </DropdownMenuItem>
                               <DropdownMenuItem
                                 className="text-red-600"
                                 onClick={() => handleDelete(user.id)}
