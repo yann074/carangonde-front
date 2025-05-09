@@ -84,7 +84,7 @@ export default function PerfilUsuario() {
         const token = localStorage.getItem("token")
         console.log("Token:", token)
 
-        const response = await fetch("https://carangonde-back-production.up.railway.app/api/userprofile", {
+        const response = await fetch("http://127.0.0.1:8000/api/userprofile", {
           headers: {
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
@@ -196,7 +196,7 @@ export default function PerfilUsuario() {
         },
       })
 
-      const response = await fetch("https://carangonde-back-production.up.railway.app/api/userprofile/avatar", {
+      const response = await fetch("http://127.0.0.1:8000/api/userprofile/avatar", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -255,7 +255,7 @@ export default function PerfilUsuario() {
         },
       })
 
-      const response = await fetch("https://carangonde-back-production.up.railway.app/api/userprofile/avatar", {
+      const response = await fetch("http://127.0.0.1:8000/api/userprofile/avatar", {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -301,7 +301,7 @@ export default function PerfilUsuario() {
         },
       })
 
-      const response = await fetch("https://carangonde-back-production.up.railway.app/api/userprofile", {
+      const response = await fetch("http://127.0.0.1:8000/api/userprofile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -369,7 +369,7 @@ export default function PerfilUsuario() {
         },
       })
 
-      const response = await fetch("https://carangonde-back-production.up.railway.app/api/userprofile/password", {
+      const response = await fetch("http://127.0.0.1:8000/api/userprofile/password", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

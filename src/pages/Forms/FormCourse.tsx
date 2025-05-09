@@ -100,7 +100,7 @@ const FormCourse: React.FC = () => {
       }
 
       // Enviar com o cabeçalho correto para upload de arquivos
-      await axios.post("https://carangonde-back-production.up.railway.app/api/courses", data, {
+      await axios.post("http://127.0.0.1:8000/api/courses", data, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,

@@ -84,7 +84,7 @@ const FormEvents: React.FC = () => {
         data.append("image", formData.image)
       }
   
-      await axios.post("https://carangonde-back-production.up.railway.app/api/events", data, {
+      await axios.post("http://127.0.0.1:8000/api/events", data, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,

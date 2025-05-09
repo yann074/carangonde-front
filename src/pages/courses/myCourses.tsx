@@ -61,7 +61,7 @@ export const MyCourses: React.FC = () => {
   useEffect(() => {
     setLoading(true)
     axios
-      .get("https://carangonde-back-production.up.railway.app/api/courses")
+      .get("http://127.0.0.1:8000/api/courses")
       .then((response) => {
         const updatedData = response.data.data.map((course: any) => ({
           ...course,

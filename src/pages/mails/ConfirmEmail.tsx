@@ -23,7 +23,7 @@ const ConfirmEmail: React.FC = () => {
 
     if (token) {
       axios
-        .get(`https://carangonde-back-production.up.railway.app/api/confirm-email/${token}`)
+        .get(`http://127.0.0.1:8000/api/confirm-email/${token}`)
         .then((response) => {
           setMessage("Conta ativada com sucesso! Redirecionando...");
           setTimeout(() => {
