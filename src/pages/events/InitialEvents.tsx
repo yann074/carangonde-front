@@ -56,11 +56,11 @@ const InitialEvents: React.FC = () => {
   useEffect(() => {
     setLoading(true)
     axios
-      .get("http://127.0.0.1:8000/api/events")
+      .get("https://carangonde-back-production.up.railway.app/api/events")
       .then((response) => {
         const updatedData = response.data.data.map((event: any) => ({
           ...event,
-          image_url: `http://127.0.0.1:8000/storage/${event.image}`,
+          image_url: `https://carangonde-back-production.up.railway.app/storage/${event.image}`,
         }))
 
         setEvents(updatedData)

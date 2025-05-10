@@ -88,12 +88,12 @@ export const MyCourses: React.FC = () => {
   useEffect(() => {
     setLoading(true)
     axios
-      .get("http://127.0.0.1:8000/api/courses")
+      .get("https://carangonde-back-production.up.railway.app/api/courses")
       .then((response) => {
         const updatedData = response.data.data.map((course: any) => ({
           ...course,
-          image_url: `http://localhost:8000/storage/${course.image}`,
-          pdf_url: `http://localhost:8000/storage/${course.pdf}`,
+          image_url: `https://carangonde-back-production.up.railway.app/storage/${course.image}`,
+          pdf_url: `https://carangonde-back-production.up.railway.app/storage/${course.pdf}`,
         }))
 
         setData(updatedData)

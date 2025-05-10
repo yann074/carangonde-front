@@ -18,7 +18,7 @@ const navigate = useNavigate()
       }
 
       try {
-        const res = await axios.get("http://127.0.0.1:8000/api/userprofile", {
+        const res = await axios.get("https://carangonde-back-production.up.railway.app/api/userprofile", {
           headers: { Authorization: `Bearer ${token}` },
         })
         console.log("Perfil do usuário:", res.data)

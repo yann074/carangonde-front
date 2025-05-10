@@ -118,7 +118,7 @@ const FormUsers: React.FC = () => {
 
       const token = localStorage.getItem("token")
 
-      await axios.post("http://127.0.0.1:8000/api/users", payload, {
+      await axios.post("https://carangonde-back-production.up.railway.app/api/users", payload, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,

@@ -45,7 +45,7 @@ const Dashboard: React.FC = () => {
     const fetchData = async () => {
       try {
         setLoading(true)
-        const response = await fetch("http://127.0.0.1:8000/api/admin/dashboard")
+        const response = await fetch("https://carangonde-back-production.up.railway.app/api/admin/dashboard")
         const data = await response.json()
 
         const transformedData = {

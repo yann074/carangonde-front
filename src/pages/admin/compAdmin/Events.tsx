@@ -62,12 +62,12 @@ export default function EventsTable() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://127.0.0.1:8000/api/events")
+      .get("https://carangonde-back-production.up.railway.app/api/events")
       .then((response) => {
 
         const updatedData = response.data.data.map((event: any) => ({
           ...event,
-          image_url: `http://localhost:8000/storage/${event.image}`
+          image_url: `https://carangonde-back-production.up.railway.app/storage/${event.image}`
         }));
 
 
@@ -105,7 +105,7 @@ export default function EventsTable() {
     if (!window.confirm("Are you sure you want to delete this event?")) return;
 
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/events/${id}`);
+      await axios.delete(`https://carangonde-back-production.up.railway.app/api/events/${id}`);
       setEvents((prev) => prev.filter((e) => e.id !== id));
     } catch (error) {
       console.error("Error deleting event:", error);

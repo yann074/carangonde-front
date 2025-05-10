@@ -39,7 +39,7 @@ const Register: React.FC = () => {
     setLoading(true)
 
     axios
-      .post("http://127.0.0.1:8000/api/register", form)
+      .post("https://carangonde-back-production.up.railway.app/api/register", form)
       .then((response) => {
         console.log(response.data)
         if (response.data.message === "Created successfully") {
