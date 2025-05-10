@@ -140,7 +140,7 @@ const DropdownMenuLabel = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> & {
     inset?: boolean
   }
->(({ className, inset, ...props }, ref) => (
+>(({ className, inset, ...props },) => (
   <DropdownMenuPrimitive.Label
     className={cn(
       "px-2 py-1.5 text-sm font-semibold text-gray-500 bg-gray-100",
