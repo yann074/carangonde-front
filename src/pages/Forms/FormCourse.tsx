@@ -24,6 +24,7 @@ interface FormData {
   end_date: string
   location: string
   image: File | null
+  pdf: File | null
   slots: number
   active: boolean
 }
@@ -44,6 +45,7 @@ const FormCourse: React.FC = () => {
     end_date: "",
     location: "",
     image: null,
+    pdf:null,
     slots: 0,
     active: true,
   })
@@ -69,6 +71,10 @@ const FormCourse: React.FC = () => {
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null
     setFormData((prev) => ({ ...prev, image: file }))
+  }
+  const handlePDFChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null
+    setFormData((prev) => ({ ...prev, pdf: file }))
   }
 
   const handleSwitchChange = (checked: boolean) => {
@@ -97,6 +103,10 @@ const FormCourse: React.FC = () => {
       // Adicionar a imagem apenas se existir
       if (formData.image) {
         data.append("image", formData.image)
+      }
+
+      if(formData.pdf){
+        data.append("pdf", formData.pdf)
       }
 
       // Enviar com o cabeçalho correto para upload de arquivos
@@ -129,6 +139,7 @@ const FormCourse: React.FC = () => {
         end_date: "",
         location: "",
         image: null,
+        pdf: null,
         slots: 0,
         active: true,
       })
@@ -226,6 +237,13 @@ const FormCourse: React.FC = () => {
                 <Input id="input-image" name="image" type="file" accept="image/*" onChange={handleImageChange} />
                 <p className="text-sm text-muted-foreground">
                   Adicione uma imagem para ilustrar o curso. Recomendamos imagens de 1200x630 pixels.
+                </p>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="input-image">Ementa do curso</Label>
+                <Input id="input-image" name="image" type="file" accept="pdf/*" onChange={handlePDFChange} />
+                <p className="text-sm text-muted-foreground">
+                  Adicione a ementa para o curso. Recomendamos pdfs leves.
                 </p>
               </div>
             </TabsContent>

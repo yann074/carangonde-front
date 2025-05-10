@@ -22,7 +22,10 @@ interface Course {
   slots: number
   active: boolean
   image_url: string
+  pdf: string
+  pdf_url: string
 }
+{/*falta so adicionar para baixar */}
 
 // Componente personalizado para as setas de navegação
 const SampleNextArrow = (props: any) => {
@@ -66,6 +69,7 @@ export const MyCourses: React.FC = () => {
         const updatedData = response.data.data.map((course: any) => ({
           ...course,
           image_url: `http://localhost:8000/storage/${course.image}`,
+          pdf_url: `http://localhost:8000/storage/${course.pdf}`,
         }))
 
         setData(updatedData)
@@ -270,6 +274,17 @@ export const MyCourses: React.FC = () => {
               <div className="mb-6">
                 <h3 className="text-lg font-semibold mb-2">Sobre o curso</h3>
                 <p className="text-gray-700">{selectedCourse.description}</p>
+              </div>
+
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold mb-2">Ementa do Curso</h3>
+                <a  
+                 href={selectedCourse.pdf_url}
+                download
+               className="mt-2 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+               >
+                Baixar Ementa
+               </a>
               </div>
 
               <DropdownMenu>

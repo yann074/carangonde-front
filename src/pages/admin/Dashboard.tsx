@@ -14,6 +14,7 @@ import {
   ResponsiveContainer,
 } from "recharts"
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card"
+import axios from "axios"
 
 const Dashboard: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false)
@@ -22,6 +23,23 @@ const Dashboard: React.FC = () => {
   const [stats, setStats] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
+
+  function baixarExcel() {
+    axios({
+      url: "http://localhost:8000/api/exportar-dados",
+      method: "GET",
+      responseType: "blob"
+    }).then((response) => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'dados.xlsx'); // nome do arquivo
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    });
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -204,8 +222,20 @@ const Dashboard: React.FC = () => {
                     <p className="text-xs text-muted-foreground">cadastrados no sistema</p>
                   </CardContent>
                 </Card>
-              </div>
 
+                
+                <Card>
+                    <div className="flex justify-center mt-10">
+                      <button
+                        onClick={baixarExcel}
+                        className="px-6 py-2 bg-blue-600 text-white rounded-xl text-lg font-semibold hover:bg-blue-700 transition"
+                      >
+                        Exportar Excel
+                      </button>
+                    </div>
+                </Card>
+
+              </div>
 
               <Card>
                 <CardHeader>
