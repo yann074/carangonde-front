@@ -22,7 +22,7 @@ const navigate = useNavigate()
           headers: { Authorization: `Bearer ${token}` },
         })
         console.log("Perfil do usuário:", res.data)
-        if (res.data.confirm_token === "null") {
+        if (res.data.confirm_token === null) {
           setisVerified(true)
         }
       } catch (err) {
