@@ -6,8 +6,7 @@ import {
   MoreHorizontal,
   Search,
   Filter,
-  Loader2,
-  Badge
+  Loader2
 } from "lucide-react";
 import {
   Table,
