@@ -25,7 +25,7 @@ interface Course {
   pdf: string
   pdf_url: string
 }
-{/*falta so adicionar para baixar */}
+{/*falta so adicionar para baixar */ }
 
 // Componente personalizado para as setas de navegação
 const SampleNextArrow = (props: any) => {
@@ -60,6 +60,30 @@ export const MyCourses: React.FC = () => {
   const [error, setError] = useState<string>("")
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null)
+
+
+  {/*
+    function exportPdf(course: Course) {
+      axios({
+      url: `http://localhost:8000/storage/${course.pdf}`,
+      method: "GET",
+      responseType: "blob",
+    })
+      .then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement("a")
+        link.href = url
+        link.setAttribute("download", course.pdf) // nome do arquivo
+        document.body.appendChild(link)
+        link.click()
+        link.remove()
+      })
+      .catch((error) => {
+        console.error("Erro ao baixar o PDF:", error)
+      })
+  }
+  */}
+
 
   useEffect(() => {
     setLoading(true)
@@ -275,16 +299,15 @@ export const MyCourses: React.FC = () => {
                 <h3 className="text-lg font-semibold mb-2">Sobre o curso</h3>
                 <p className="text-gray-700">{selectedCourse.description}</p>
               </div>
-
               <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-2">Ementa do Curso</h3>
-                <a  
-                 href={selectedCourse.pdf_url}
-                download
-               className="mt-2 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-               >
-                Baixar Ementa
-               </a>
+                <button
+                  onClick={() => {
+                    window.open(`http://localhost:8000/storage/${selectedCourse?.pdf}`, "_blank")
+                  }}
+                  className="text-blue-600 underline"
+                >
+                  Baixar Ementa
+                </button>
               </div>
 
               <DropdownMenu>

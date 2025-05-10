@@ -2,7 +2,7 @@ import type React from "react"
 import { useState } from "react"
 import axios from "axios"
 import { Link, useNavigate } from "react-router-dom"
-import { Mail, Lock, User, Calendar, CreditCard, Phone, Home } from "lucide-react"
+import { Mail, Lock, User, Calendar, Phone, Home } from "lucide-react"
 import Swal from "sweetalert2"
 
 interface RegisterForm {
@@ -10,7 +10,6 @@ interface RegisterForm {
   email: string
   password: string
   birthday: string
-  cpf: string
   phone: string
   address: string
 }
@@ -23,7 +22,6 @@ const Register: React.FC = () => {
     email: "",
     password: "",
     birthday: "",
-    cpf: "",
     phone: "",
     address: "",
   })
@@ -186,22 +184,6 @@ const Register: React.FC = () => {
                 name="birthday"
                 type="date"
                 value={form.birthday}
-                onChange={handleChange}
-                className="w-full pl-10 pr-4 py-2 border-b-2 border-yellow-300 focus:border-yellow-500 focus:outline-none"
-                required
-                disabled={loading}
-              />
-            </div>
-
-            <div className="relative">
-              <div className="absolute left-3 top-3 text-yellow-500">
-                <CreditCard size={18} />
-              </div>
-              <input
-                name="cpf"
-                type="text"
-                placeholder="Digite seu CPF"
-                value={form.cpf}
                 onChange={handleChange}
                 className="w-full pl-10 pr-4 py-2 border-b-2 border-yellow-300 focus:border-yellow-500 focus:outline-none"
                 required
