@@ -20,7 +20,6 @@ import UserProfile from './pages/profile/UserProfile'
 
 import ConfirmEmail from './pages/mails/ConfirmEmail'
 
-import UserRoute from './userAccess/ProtecedRoute/UserRoute'
 import VerifyAccount from './userAccess/VerifyAccount'
 import AdminRoute from './userAccess/ProtecedRoute/AdminRoute'
 import { AuthProvider } from './userAccess/AuthProvider'
@@ -63,9 +62,9 @@ const router = createBrowserRouter([
     path: '/profile',
     element: (
       <VerifyAccount>
-        <UserRoute>
+      
           <UserProfile />
-        </UserRoute>
+        
       </VerifyAccount>
     ),
     errorElement: <ErrorPage />,
@@ -74,9 +73,9 @@ const router = createBrowserRouter([
     path: '/courses',
     element: (
       <VerifyAccount>
-        <UserRoute>
+      
           <Couses />
-        </UserRoute>
+        
       </VerifyAccount>
     ),
     errorElement: <ErrorPage />,
