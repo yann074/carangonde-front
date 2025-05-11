@@ -12,6 +12,7 @@ import Events from './pages/events/InitialEvents'
 import Courses from './pages/admin/compAdmin/Courses'
 import EventsAdmin from './pages/admin/compAdmin/Events'
 import UsersAdmin from './pages/admin/compAdmin/Users'
+import UsersApplied from './pages/admin/compAdmin/UsersApplied'
 import FormEvents from './pages/Forms/FormEvents'
 import FormCourse from './pages/Forms/FormCourse'
 import FormUser from './pages/Forms/FormUser'
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { path: 'courses', element: <Courses />, errorElement: <ErrorPage /> },
+      { path: 'applieds', element: <UsersApplied />, errorElement: <ErrorPage /> },
       { path: 'events', element: <EventsAdmin />, errorElement: <ErrorPage /> },
       { path: 'users', element: <UsersAdmin />, errorElement: <ErrorPage /> },
 

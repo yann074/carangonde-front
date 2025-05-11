@@ -154,6 +154,14 @@ const Dashboard: React.FC = () => {
             to="users"
             onClick={() => setCurrentView("users")}
           />
+          <SidebarItem
+            icon={<Users />}
+            title="Usuários Cadastrados"
+            active={currentView === "applieds"}
+            collapsed={collapsed}
+            to="applieds"
+            onClick={() => setCurrentView("applieds")}
+          />
         </nav>
 
         {/* Sidebar Footer */}
