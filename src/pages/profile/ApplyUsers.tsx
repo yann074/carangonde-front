@@ -21,7 +21,7 @@ export default function Apply() {
       const token = localStorage.getItem("token");
 
       await axios.post(
-        `http://127.0.0.1:8000/api/apply_opportunities/${id}`,
+        `https://carangonde-back-production.up.railway.app/api/apply_opportunities/${id}`,
         { id_vaga: id },
         {
           headers: {
@@ -48,7 +48,7 @@ export default function Apply() {
 
   const fetchUserData = async () => {
     try {
-      const userProfileResponse = await axios.get("http://127.0.0.1:8000/api/userprofile", {
+      const userProfileResponse = await axios.get("https://carangonde-back-production.up.railway.app/api/userprofile", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

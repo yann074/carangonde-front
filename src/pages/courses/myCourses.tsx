@@ -182,13 +182,9 @@ export const MyCourses: React.FC = () => {
                 >
                   <div className="relative h-48 overflow-hidden rounded-t-lg">
                     <img
-                      src={item.image_url || "/placeholder.svg"}
+                      src={item.image_url}
                       alt={item.title}
-                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement
-                        target.src = "/placeholder.svg?height=192&width=384"
-                      }}
+                      className="w-full h-full object-cover"
                     />
                     <div className="absolute top-0 right-0 m-2">
                       <Badge variant="outline" className="bg-white/80 backdrop-blur-sm font-medium">
