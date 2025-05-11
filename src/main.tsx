@@ -17,6 +17,8 @@ import FormEvents from './pages/Forms/FormEvents'
 import FormCourse from './pages/Forms/FormCourse'
 import FormUser from './pages/Forms/FormUser'
 
+import ApplyUsers from "./pages/profile/ApplyUsers"
+
 import UserProfile from './pages/profile/UserProfile'
 
 import ConfirmEmail from './pages/mails/ConfirmEmail'
@@ -69,6 +71,11 @@ const router = createBrowserRouter([
       
     ),
     errorElement: <ErrorPage />,
+  },
+    {
+    path: "apply/:id", 
+    element: <ApplyUsers />,
+    errorElement: <ErrorPage /> 
   },
   {
     path: '/courses',

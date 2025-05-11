@@ -2,6 +2,7 @@ import type React from "react"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import Slider from "react-slick"
+import { useNavigate } from "react-router-dom"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../../components/ui/card"
@@ -60,6 +61,7 @@ export const MyCourses: React.FC = () => {
   const [error, setError] = useState<string>("")
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null)
+  const navigate = useNavigate();
 
 
   {/*
@@ -316,16 +318,10 @@ export const MyCourses: React.FC = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56 border-yellow-100">
                   <DropdownMenuItem
-                    onSelect={() => alert(`Inscrever-se em ${selectedCourse.title}`)}
+                    onSelect={() => navigate(`/apply/${selectedCourse?.id}`)}
                     className="cursor-pointer focus:bg-yellow-50 focus:text-yellow-600"
                   >
                     Inscrever-se
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onSelect={() => alert(`Compartilhar ${selectedCourse.title}`)}
-                    className="cursor-pointer focus:bg-yellow-50 focus:text-yellow-600"
-                  >
-                    Compartilhar
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onSelect={() => alert(`Ver detalhes de ${selectedCourse.title}`)}
