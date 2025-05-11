@@ -61,9 +61,9 @@ export default function CoursesTable() {
       .then((response) => {
         const updatedData = response.data.data.map((course: any) => ({
           ...course,
-          image_url: `https://carangonde-back-production.up.railway.app/storage/${course.image}`,
+          image_url: `https://res.cloudinary.com/drrwunovx/image/upload/${course.image}`, 
         }))
-
+        
         setCourses(updatedData)
         setLoading(false)
       })
@@ -86,7 +86,8 @@ export default function CoursesTable() {
       return "Data inválida"
     }
   }
-
+  
+  {/*image_url: `https://carangonde-back-production.up.railway.app/storage/${course.image}`, */}
   // Action handlers
   const handleEdit = (id: number) => {
     console.log("Edit course", id)
