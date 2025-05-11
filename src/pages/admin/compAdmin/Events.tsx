@@ -67,7 +67,7 @@ export default function EventsTable() {
 
         const updatedData = response.data.data.map((event: any) => ({
           ...event,
-          image_url: `https://carangonde-back-production.up.railway.app/storage/${event.image}`
+          image_url: event.image
         }));
 
 

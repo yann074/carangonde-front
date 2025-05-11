@@ -60,7 +60,7 @@ const InitialEvents: React.FC = () => {
       .then((response) => {
         const updatedData = response.data.data.map((event: any) => ({
           ...event,
-          image_url: `https://carangonde-back-production.up.railway.app/storage/${event.image}`,
+          image_url: event.image,
         }))
 
         setEvents(updatedData)
@@ -119,9 +119,9 @@ const InitialEvents: React.FC = () => {
   return (
     <>
       <Header />
-      <div className="bg-gradient-to-r from-purple-50 to-blue-50 py-16">
+      <div className="bg-gradient-to-r from-yellow-50 to-blue-50 py-16">
         <div className="text-center px-4 max-w-3xl mx-auto">
-          <h1 className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 mb-6">
+          <h1 className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-600 to-blue-600 mb-6">
             EVENTOS
           </h1>
           <p className="text-lg text-gray-700 leading-relaxed">
@@ -133,7 +133,7 @@ const InitialEvents: React.FC = () => {
       <div className="container mx-auto py-16 px-6">
         {loading ? (
           <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-yellow-500"></div>
           </div>
         ) : error ? (
           <div className="text-red-500 text-center p-8 bg-red-50 rounded-lg">
@@ -147,7 +147,7 @@ const InitialEvents: React.FC = () => {
             {/* Título da seção */}
             <div className="mb-10">
               <h2 className="text-3xl font-bold text-gray-800 mb-2">Próximos Eventos</h2>
-              <div className="w-20 h-1 bg-purple-500 rounded"></div>
+              <div className="w-20 h-1 bg-yellow-500 rounded"></div>
             </div>
 
             {/* Carrossel de Eventos */}
@@ -172,7 +172,7 @@ const InitialEvents: React.FC = () => {
 
                         <CardHeader className="pb-2">
                           <CardTitle className="line-clamp-1 text-xl">{event.title}</CardTitle>
-                          <CardDescription className="flex items-center gap-1 text-purple-600">
+                          <CardDescription className="flex items-center gap-1 text-yellow-600">
                             <Calendar className="h-4 w-4" />
                             {formatDate(event.date)}
                           </CardDescription>
@@ -193,7 +193,7 @@ const InitialEvents: React.FC = () => {
                         <CardFooter>
                           <Button
                             onClick={() => openModal(event)}
-                            className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+                            className="w-full bg-gradient-to-r from-yellow-600 to-blue-600 hover:from-yellow-700 hover:to-blue-700"
                           >
                             Ver detalhes
                           </Button>
@@ -213,7 +213,7 @@ const InitialEvents: React.FC = () => {
             {events.length > 0 && (
               <div className="mt-16">
                 <h2 className="text-3xl font-bold text-gray-800 mb-2">Eventos em Destaque</h2>
-                <div className="w-20 h-1 bg-purple-500 rounded mb-8"></div>
+                <div className="w-20 h-1 bg-yellow-500 rounded mb-8"></div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {events.slice(0, 2).map((event) => (
@@ -253,7 +253,7 @@ const InitialEvents: React.FC = () => {
 
                         <Button
                           onClick={() => openModal(event)}
-                          className="w-full md:w-auto bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+                          className="w-full md:w-auto bg-gradient-to-r from-yellow-600 to-blue-600 hover:from-yellow-700 hover:to-blue-700"
                         >
                           Ver detalhes
                         </Button>
@@ -307,15 +307,15 @@ const InitialEvents: React.FC = () => {
             <div className="p-6">
               <div className="flex flex-wrap gap-4 mb-6">
                 <div className="flex items-center gap-2 text-sm">
-                  <Calendar className="h-4 w-4 text-purple-600" />
+                  <Calendar className="h-4 w-4 text-yellow-600" />
                   <span>{formatDate(selectedEvent.date)}</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
-                  <Clock className="h-4 w-4 text-purple-600" />
+                  <Clock className="h-4 w-4 text-yellow-600" />
                   <span>{selectedEvent.time}</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
-                  <MapPin className="h-4 w-4 text-purple-600" />
+                  <MapPin className="h-4 w-4 text-yellow-600" />
                   <span>{selectedEvent.location}</span>
                 </div>
               </div>
