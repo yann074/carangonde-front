@@ -8,9 +8,9 @@ import Actions from '../components/elements/Actions';
 const HomePage = () => {
   return (
     <>
-    
+
       <div className='bg-white'>
-      <Header />
+        <Header />
 
         {/* Hero Section - Yellow Focus */}
         <section className="py-10" id="inicio">
@@ -22,7 +22,7 @@ const HomePage = () => {
                   Erguendo Lares: <span className="text-amber-600">Juntos</span> Transformamos <br />
                   <span className="text-yellow-600">Vidas na Zona Rural</span>
                 </h1>
-                
+
                 <p className="text-xl text-gray-600 leading-relaxed">
                   Nossa missão é levar dignidade através de moradias seguras e programas de desenvolvimento comunitário para famílias em áreas rurais.
                 </p>
@@ -34,20 +34,20 @@ const HomePage = () => {
                   >
                     Cadastre-se Agora
                   </Link>
-                  <Link
-                    to="/about"
+                  <a
+                    href="#about"
                     className="px-8 py-4 border-2 border-yellow-600 text-yellow-600 hover:bg-yellow-50 font-semibold rounded-lg transition-colors duration-300 text-center"
                   >
                     Conheça Nosso Trabalho
-                  </Link>
+                  </a>
                 </div>
 
                 <div className="flex items-center gap-4 pt-4">
                   <div className="flex -space-x-2">
                     {[1, 2, 3].map((item) => (
-                      <img 
+                      <img
                         key={item}
-                        src={`/avatar-${item}.jpg`} 
+                        src={`/avatar-${item}.jpg`}
                         alt="Voluntário"
                         className="w-10 h-10 rounded-full border-2 border-white"
                       />
@@ -90,7 +90,7 @@ const HomePage = () => {
                 <h2 className="text-4xl font-bold text-gray-900 mb-6">
                   Nossa <span className="text-amber-600">Missão</span> e <span className="text-yellow-600">História</span>
                 </h2>
-                
+
                 <p className="text-lg text-gray-600 leading-relaxed mb-6">
                   A ONG Carangondé tem como finalidade incentivar, promover e apoiar a defesa, preservação e conservação do meio ambiente,
                   o desenvolvimento sustentável, a provisão de moradia digna e a preservação das culturas tradicionais.
@@ -117,9 +117,9 @@ const HomePage = () => {
                   </div>
                 </div>
 
-                <button className="mt-8 bg-yellow-600 hover:bg-yellow-500 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-300">
+                <a href='#about' className="mt-8 bg-yellow-600 hover:bg-yellow-500 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-300">
                   Conheça nosso trabalho
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -169,8 +169,8 @@ const HomePage = () => {
           </div>
         </section>
 
-          
-          {/* Testimonials Section */}
+
+        {/* Testimonials Section */}
         <Testimonials />
 
         {/* Donation Section */}
@@ -215,16 +215,20 @@ const HomePage = () => {
                     </div>
                   </div>
 
-                  <button className="bg-white hover:bg-gray-100 text-amber-600 font-bold py-3 px-8 rounded-full transition-colors duration-300 shadow-md">
+                  <button
+                    onClick={() => alert("Obrigado por querer doar! ❤️")}
+                    className="bg-white hover:bg-gray-100 text-amber-600 font-bold py-3 px-8 rounded-full transition-colors duration-300 shadow-md"
+                  >
                     Quero doar agora
                   </button>
+
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-                  
+
         {/* Actions Section */}
         <Actions />
 

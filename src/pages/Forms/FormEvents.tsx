@@ -301,7 +301,9 @@ const FormEvents: React.FC = () => {
             {isSubmitting ? "Criando..." : "Criar evento"}
           </Button>
         ) : (
-          <Button onClick={nextTab}>Próximo</Button>
+          <Button onClick={nextTab}
+           className="text-black hover:text-black focus:text-black"
+           >Próximo</Button>
         )}
       </CardFooter>
     </Card>

@@ -27,7 +27,6 @@ import {
   Save,
   X,
   Lock,
-  AlertTriangle,
   Camera,
   Upload,
   Trash2,
@@ -48,7 +47,6 @@ interface User {
   phone: string
   address: string 
   role: string
-  cpf: string
   email_verified_at: string | null
   created_at: string
 }
@@ -493,7 +491,7 @@ export default function PerfilUsuario() {
       "bg-blue-500",
       "bg-green-500",
       "bg-yellow-500",
-      "bg-purple-500",
+      "bg-yellow-500",
       "bg-pink-500",
       "bg-indigo-500",
       "bg-teal-500",
@@ -650,13 +648,6 @@ export default function PerfilUsuario() {
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-3">
-                          <Shield className="h-5 w-5 text-muted-foreground" />
-                          <div>
-                            <p className="text-sm font-medium text-muted-foreground">CPF</p>
-                            <p className="text-lg font-medium">{user.cpf}</p>
-                          </div>
-                        </div>
                       </div>
 
                       <div className="space-y-4">
@@ -735,23 +726,6 @@ export default function PerfilUsuario() {
                           />
                         </div>
                       </div>
-
-                      <div className="grid gap-2">
-                        <Label htmlFor="cpf">CPF</Label>
-                        <Input
-                          id="cpf"
-                          name="cpf"
-                          value={formData.cpf || ""}
-                          onChange={handleInputChange}
-                          disabled={user.cpf ? true : false}
-                          className="h-10"
-                        />
-                        {user.cpf && (
-                          <p className="text-xs text-muted-foreground flex items-center gap-1">
-                            <AlertTriangle className="h-3 w-3" />O CPF não pode ser alterado após o cadastro
-                          </p>
-                        )}
-                      </div>
                     </div>
                   )}
                 </CardContent>
@@ -770,7 +744,7 @@ export default function PerfilUsuario() {
                         <X className="h-4 w-4" />
                         Cancelar
                       </Button>
-                      <Button onClick={handleSaveProfile} className="flex items-center gap-2">
+                      <Button onClick={handleSaveProfile} className="text-black hover:text-black focus:text-black">
                         <Save className="h-4 w-4" />
                         Salvar Alterações
                       </Button>

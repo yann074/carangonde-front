@@ -385,7 +385,9 @@ const FormUsers: React.FC = () => {
             {isSubmitting ? "Cadastrando..." : "Cadastrar usuário"}
           </Button>
         ) : (
-          <Button onClick={nextTab}>Próximo</Button>
+          <Button onClick={nextTab}
+           className="text-black hover:text-black focus:text-black"
+           >Próximo</Button>
         )}
       </CardFooter>
     </Card>

@@ -50,20 +50,20 @@ export default function Header() {
 
         {/* Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
-          <a 
-            href="#inicio" 
+          <Link 
+            to="/" 
             className="relative text-gray-700 hover:text-orange-500 transition-colors font-medium group"
           >
             Início
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
-          </a>
-          <a 
-            href="#about" 
+          </Link>
+          <Link 
+            to="/" 
             className="relative text-gray-700 hover:text-orange-500 transition-colors font-medium group"
           >
             Quem Somos
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
-          </a>
+          </Link>
           <Link 
             to="/events" 
             className="relative text-gray-700 hover:text-orange-500 transition-colors font-medium group"

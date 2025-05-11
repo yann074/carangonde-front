@@ -79,7 +79,7 @@ import {
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0 gap-0 rounded-lg bg-white border shadow-lg" onInteractOutside={(e) => e.preventDefault()}>
           {loadingDetails ? (
             <div className="flex flex-col justify-center items-center py-16 px-6">
-              <Loader2 className="h-10 w-10 text-purple-600 animate-spin mb-4" />
+              <Loader2 className="h-10 w-10 text-yellow-600 animate-spin mb-4" />
               <p className="text-gray-600 text-lg">Carregando detalhes do C...</p>
             </div>
           ) : detailsError ? (
@@ -102,7 +102,7 @@ import {
                 <Button 
                   onClick={() => onOpenChange(false)}
                   variant="default"
-                  className="bg-purple-600 hover:bg-purple-700"
+                  className="bg-yellow-600 hover:bg-yellow-700"
                 >
                   Fechar
                 </Button>
@@ -138,7 +138,7 @@ import {
                     <Card className="col-span-2">
                       <CardHeader className="pb-2">
                         <CardTitle className="text-lg flex items-center">
-                          <FileText className="mr-2 h-5 w-5 text-purple-600" />
+                          <FileText className="mr-2 h-5 w-5 text-yellow-600" />
                           Descrição do Curso
                         </CardTitle>
                       </CardHeader>
@@ -178,7 +178,7 @@ import {
                       <Card>
                         <CardHeader className="pb-2">
                           <CardTitle className="text-lg flex items-center">
-                            <Bookmark className="mr-2 h-5 w-5 text-purple-600" />
+                            <Bookmark className="mr-2 h-5 w-5 text-yellow-600" />
                             Categoria
                           </CardTitle>
                         </CardHeader>
@@ -241,7 +241,7 @@ import {
                     </Button>
                     <Button
                       onClick={() => handleEdit(selectedCourse.id)}
-                      className="bg-purple-600 hover:bg-purple-700"
+                      className="bg-yellow-600 hover:bg-yellow-700"
                     >
                       <Paintbrush className="mr-2 h-4 w-4" />
                       Editar Curso
@@ -258,7 +258,7 @@ import {
                 <p className="text-gray-500 mb-6">Não foi possível encontrar os detalhes deste curso no sistema.</p>
                 <Button 
                   onClick={() => onOpenChange(false)}
-                  className="bg-purple-600 hover:bg-purple-700"
+                  className="bg-yellow-600 hover:bg-yellow-700"
                 >
                   Fechar
                 </Button>
