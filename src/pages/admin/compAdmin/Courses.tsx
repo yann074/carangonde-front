@@ -61,7 +61,7 @@ export default function CoursesTable() {
       .then((response) => {
         const updatedData = response.data.data.map((course: any) => ({
           ...course,
-          image_url: `https://res.cloudinary.com/drrwunovx/image/upload/${course.image}`, 
+          image_url: course.image, 
         }))
         
         setCourses(updatedData)
