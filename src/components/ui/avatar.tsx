@@ -1,43 +1,66 @@
-// Importação do Radix Avatar
 import React from "react";
+import * as RadixAvatar from '@radix-ui/react-avatar';
+import { cn } from "../../lib/utils";
 
-import * as RadixAvatar from '@radix-ui/react-avatar'
-import { cn } from "../../lib/utils" // Certifique-se de que `cn` seja uma função útil para concatenar classes (como o clsx, por exemplo)
+interface AvatarProps extends React.ComponentPropsWithoutRef<typeof RadixAvatar.Root> {
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  shape?: 'circle' | 'square';
+}
 
-// Componente AvatarRoot
-const AvatarComponent = React.forwardRef<React.ElementRef<typeof RadixAvatar.Root>, React.ComponentPropsWithoutRef<typeof RadixAvatar.Root>>(
-  ({ className, ...props }, ref) => (
+const Avatar = React.forwardRef<React.ElementRef<typeof RadixAvatar.Root>, AvatarProps>(
+  ({ className, size = 'md', shape = 'circle', ...props }, ref) => (
     <RadixAvatar.Root
       ref={ref}
-      className={cn("relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full", className)}
+      className={cn(
+        "relative flex shrink-0 overflow-hidden",
+        // Size variants
+        {
+          'h-8 w-8': size === 'sm',
+          'h-10 w-10': size === 'md',
+          'h-12 w-12': size === 'lg',
+          'h-16 w-16': size === 'xl',
+        },
+        // Shape variants
+        {
+          'rounded-full': shape === 'circle',
+          'rounded-md': shape === 'square',
+        },
+        className
+      )}
       {...props}
     />
   )
-)
-AvatarComponent.displayName = RadixAvatar.Root.displayName
+);
+Avatar.displayName = "Avatar";
 
-// Componente AvatarImage
-const AvatarImage = React.forwardRef<React.ElementRef<typeof RadixAvatar.Image>, React.ComponentPropsWithoutRef<typeof RadixAvatar.Image>>(
-  ({ className, ...props }, ref) => (
-    <RadixAvatar.Image
-      ref={ref}
-      className={cn("aspect-square h-full w-full", className)}
-      {...props}
-    />
-  )
-)
-AvatarImage.displayName = RadixAvatar.Image.displayName
+const AvatarImage = React.forwardRef<
+  React.ElementRef<typeof RadixAvatar.Image>,
+  React.ComponentPropsWithoutRef<typeof RadixAvatar.Image>
+>(({ className, ...props }, ref) => (
+  <RadixAvatar.Image
+    ref={ref}
+    className={cn(
+      "aspect-square h-full w-full object-cover",
+      className
+    )}
+    {...props}
+  />
+));
+AvatarImage.displayName = "AvatarImage";
 
-// Componente AvatarFallback
-const AvatarFallback = React.forwardRef<React.ElementRef<typeof RadixAvatar.Fallback>, React.ComponentPropsWithoutRef<typeof RadixAvatar.Fallback>>(
-  ({ className, ...props }, ref) => (
-    <RadixAvatar.Fallback
-      ref={ref}
-      className={cn("flex h-full w-full items-center justify-center rounded-full bg-muted", className)}
-      {...props}
-    />
-  )
-)
-AvatarFallback.displayName = RadixAvatar.Fallback.displayName
+const AvatarFallback = React.forwardRef<
+  React.ElementRef<typeof RadixAvatar.Fallback>,
+  React.ComponentPropsWithoutRef<typeof RadixAvatar.Fallback>
+>(({ className, ...props }, ref) => (
+  <RadixAvatar.Fallback
+    ref={ref}
+    className={cn(
+      "flex h-full w-full items-center justify-center bg-gray-100 text-gray-600",
+      className
+    )}
+    {...props}
+  />
+));
+AvatarFallback.displayName = "AvatarFallback";
 
-export { AvatarComponent as Avatar, AvatarImage, AvatarFallback };
+export { Avatar, AvatarImage, AvatarFallback };
