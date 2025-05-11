@@ -61,7 +61,7 @@ export default function CoursesTable() {
       .then((response) => {
         const updatedData = response.data.data.map((course: any) => ({
           ...course,
-          image_url: `http://localhost:8000/storage/${course.image}`,
+          image_url: `https://carangonde-back-production.up.railway.app/storage/${course.image}`,
         }))
 
         setCourses(updatedData)

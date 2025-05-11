@@ -65,7 +65,7 @@ export const MyCourses: React.FC = () => {
   {/*
     function exportPdf(course: Course) {
       axios({
-      url: `http://localhost:8000/storage/${course.pdf}`,
+      url: `https://carangonde-back-production.up.railway.app/storage/${course.pdf}`,
       method: "GET",
       responseType: "blob",
     })
@@ -302,7 +302,7 @@ export const MyCourses: React.FC = () => {
               <div className="mb-6">
                 <button
                   onClick={() => {
-                    window.open(`http://localhost:8000/storage/${selectedCourse?.pdf}`, "_blank")
+                    window.open(`https://carangonde-back-production.up.railway.app/storage/${selectedCourse?.pdf}`, "_blank")
                   }}
                   className="text-blue-600 underline"
                 >

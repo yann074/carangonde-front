@@ -27,7 +27,7 @@ const Dashboard: React.FC = () => {
 
   function baixarExcel() {
     axios({
-      url: "http://localhost:8000/api/exportar-dados",
+      url: "https://carangonde-back-production.up.railway.app/api/exportar-dados",
       method: "GET",
       responseType: "blob"
     }).then((response) => {

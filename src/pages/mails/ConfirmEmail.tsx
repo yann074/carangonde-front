@@ -27,7 +27,7 @@ const ConfirmEmail: React.FC = () => {
         .then((response) => {
           setMessage("Conta ativada com sucesso! Redirecionando...");
           setTimeout(() => {
-            navigate(response.data.redirect_url.replace("http://localhost:5173", ""));
+            navigate(response.data.redirect_url.replace("https://carangonde-back-production.up.railway.app/courses", ""));
           }, 3000);
         })
         .catch((error) => {
