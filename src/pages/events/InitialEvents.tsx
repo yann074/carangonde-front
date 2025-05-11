@@ -223,7 +223,7 @@ const InitialEvents: React.FC = () => {
                     >
                       <div className="md:w-2/5 h-48 md:h-auto">
                         <img
-                          src={event.image_url || "/placeholder.svg"}
+                          src={event.image_url}
                           alt={event.title}
                           className="w-full h-full object-cover"
                         />

@@ -50,7 +50,7 @@ interface Event {
   date: string;
   time: string;
   active: number;
-  image_url: string;
+  image: string;
 }
 
 export default function EventsTable() {
@@ -67,7 +67,7 @@ export default function EventsTable() {
 
         const updatedData = response.data.data.map((event: any) => ({
           ...event,
-          image_url: event.image
+          image: event.image
         }));
 
 
@@ -207,7 +207,7 @@ export default function EventsTable() {
                     filteredEvents.map((event) => (
                       <TableRow key={event.id}>
                         <TableCell className="font-medium">{event.id}</TableCell>
-                        <img src={event.image_url} alt="Evento" className="mt-2 w-10 h-10 rounded-full" />
+                        <img src={event.image} alt="Evento" className="mt-2 w-10 h-10 rounded-full" />
                         <TableCell>
                           <div>
                             <p className="font-medium">{event.title}</p>
