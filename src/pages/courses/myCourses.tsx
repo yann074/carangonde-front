@@ -94,9 +94,9 @@ export const MyCourses: React.FC = () => {
       .then((response) => {
         const updatedData = response.data.data.map((course: any) => ({
           ...course,
-          image_url: {course.image}`,
-          pdf_url: `https://carangonde-back-production.up.railway.app/storage/${course.pdf}`,
-        }))
+          image_url: course.image, // <-- só o nome da imagem vindo da API
+          pdf_url: course.pdf,     // <-- só o nome do PDF vindo da API
+        }));
 
         setData(updatedData)
         setLoading(false)
