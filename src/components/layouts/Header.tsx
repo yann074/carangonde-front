@@ -78,6 +78,12 @@ export default function Header() {
             Contato
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
           </a>
+          {isLoggedIn && (
+            <Link to="courses">
+                 Cursos Disponíveis
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
+            </Link>
+          )}
         </nav>
 
         {/* Auth Section */}

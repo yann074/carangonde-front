@@ -10,17 +10,28 @@ const Courses: React.FC = () => {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         {/* Hero Section - Simplificado e mais clean */}
+        {/* Hero Section - Simplificado e mais clean */}
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight text-gray-900">
             Aprimore suas habilidades com nossos cursos
           </h1>
-          <p className="text-lg text-gray-600 mb-8">Conhecimento transformador para capacitar você e sua comunidade.</p>
-          <a
-            href="#cursos"
-            className="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-medium px-6 py-3 rounded-lg transition-all duration-200"
-          >
-            Ver cursos disponíveis
-          </a>
+          <p className="text-lg text-gray-600 mb-8">
+            Conhecimento transformador para capacitar você e sua comunidade.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <a
+              href="#cursos"
+              className="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-medium px-6 py-3 rounded-lg transition-all duration-200"
+            >
+              Ver cursos disponíveis
+            </a>
+            <a
+              href="/events"
+              className="inline-block bg-gray-200 hover:bg-gray-300 text-gray-900 font-medium px-6 py-3 rounded-lg transition-all duration-200"
+            >
+              Ver eventos
+            </a>
+          </div>
         </div>
 
         {/* Stats Section - Redesenhado com estilo mais clean */}
