@@ -23,16 +23,13 @@ import UserProfile from './pages/profile/UserProfile'
 
 import ConfirmEmail from './pages/mails/ConfirmEmail'
 
-import AdminRoute from './userAccess/ProtecedRoute/AdminRoute'
 import { AuthProvider } from './userAccess/AuthProvider'
 
 const router = createBrowserRouter([
   {
     path: '/admin',
     element: (
-      <AdminRoute>
         <Dashboard />
-      </AdminRoute>
     ),
     errorElement: <ErrorPage />,
     children: [
@@ -64,11 +61,7 @@ const router = createBrowserRouter([
   {
     path: '/profile',
     element: (
-    
-      
           <UserProfile />
-        
-      
     ),
     errorElement: <ErrorPage />,
   },
@@ -80,11 +73,7 @@ const router = createBrowserRouter([
   {
     path: '/courses',
     element: (
-    
-      
           <Couses />
-        
-      
     ),
     errorElement: <ErrorPage />,
   },
